@@ -8,6 +8,7 @@ import { Collection } from "./pages/Collection";
 import { ProductDetails } from "./pages/ProductDetails";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
+import { About, CustomOrders, ShippingPolicy, Returns, FAQPage, Contact, PrivacyPolicy, TermsOfService } from "./pages/InfoPages";
 
 export default function App() {
   return (
@@ -24,6 +25,14 @@ export default function App() {
               <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/checkout" element={<Checkout />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/custom" element={<CustomOrders />} />
+              <Route path="/shipping" element={<ShippingPolicy />} />
+              <Route path="/returns" element={<Returns />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfService />} />
             </Routes>
           </div>
 

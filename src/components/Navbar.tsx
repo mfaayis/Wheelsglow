@@ -14,8 +14,8 @@ export function Navbar() {
       <div className="flex items-center gap-8">
         <div className="hidden md:flex gap-8 text-xs font-mono uppercase tracking-[0.3em]">
           <Link to="/collection" className="hover:text-neon-accent transition-colors">Collection</Link>
-          <a href="#" className="hover:text-neon-accent transition-colors">Custom</a>
-          <a href="#" className="hover:text-neon-accent transition-colors">About</a>
+          <Link to="/custom" className="hover:text-neon-accent transition-colors">Custom</Link>
+          <Link to="/about" className="hover:text-neon-accent transition-colors">About</Link>
         </div>
         <div className="flex gap-6">
           <User className="w-5 h-5 cursor-pointer hover:text-neon-accent transition-colors" />

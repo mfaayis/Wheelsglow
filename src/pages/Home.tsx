@@ -17,7 +17,7 @@ export function Home() {
         >
           <h2 className="text-[12vw] md:text-[15vw] leading-[0.85] mb-8">
             Light Up<br />
-            <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>The Road</span>
+            <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>The Room</span>
           </h2>
           
           <div className="flex flex-col md:flex-row md:items-end gap-12">

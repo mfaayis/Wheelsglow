@@ -20,26 +20,26 @@ export function Footer() {
           <h4 className="font-mono text-xs uppercase tracking-widest">Shop</h4>
           <ul className="space-y-4 text-sm text-white/40">
             <li className="hover:text-white cursor-pointer"><Link to="/collection">All Posters</Link></li>
-            <li className="hover:text-white cursor-pointer">Car Series</li>
-            <li className="hover:text-white cursor-pointer">Motorcycle Series</li>
-            <li className="hover:text-white cursor-pointer">Custom Orders</li>
+            <li className="hover:text-white cursor-pointer"><Link to="/collection">Car Series</Link></li>
+            <li className="hover:text-white cursor-pointer"><Link to="/collection">Motorcycle Series</Link></li>
+            <li className="hover:text-white cursor-pointer"><Link to="/custom">Custom Orders</Link></li>
           </ul>
         </div>
         <div className="space-y-6">
           <h4 className="font-mono text-xs uppercase tracking-widest">Support</h4>
           <ul className="space-y-4 text-sm text-white/40">
-            <li className="hover:text-white cursor-pointer">Shipping Policy</li>
-            <li className="hover:text-white cursor-pointer">Returns</li>
-            <li className="hover:text-white cursor-pointer">FAQ</li>
-            <li className="hover:text-white cursor-pointer">Contact</li>
+            <li className="hover:text-white cursor-pointer"><Link to="/shipping">Shipping Policy</Link></li>
+            <li className="hover:text-white cursor-pointer"><Link to="/returns">Returns</Link></li>
+            <li className="hover:text-white cursor-pointer"><Link to="/faq">FAQ</Link></li>
+            <li className="hover:text-white cursor-pointer"><Link to="/contact">Contact</Link></li>
           </ul>
         </div>
       </div>
       <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between gap-6 text-[10px] font-mono text-white/20 uppercase tracking-widest">
         <p>© 2026 WheelsGlow Store. All rights reserved.</p>
         <div className="flex gap-8">
-          <span>Privacy Policy</span>
-          <span>Terms of Service</span>
+          <Link to="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
+          <Link to="/terms" className="hover:text-white transition-colors">Terms of Service</Link>
         </div>
       </div>
     </footer>
