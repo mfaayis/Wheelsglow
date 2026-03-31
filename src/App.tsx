@@ -108,7 +108,10 @@ export default function App() {
           <div className="flex justify-between items-end mb-16">
             <div>
               <p className="text-neon-accent font-mono text-xs uppercase tracking-[0.5em] mb-4">New Arrivals</p>
-              <h2 className="text-5xl md:text-7xl">Featured Art</h2>
+              <h2 className="text-[10vw] md:text-[8vw] leading-[0.85]">
+                Featured<br />
+                <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>Art</span>
+              </h2>
             </div>
             <div className="hidden md:block text-right">
               <p className="text-xs text-white/40 font-mono uppercase tracking-widest">Scroll to explore</p>
@@ -144,7 +147,10 @@ export default function App() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-20">
               <p className="text-neon-accent font-mono text-xs uppercase tracking-[0.5em] mb-4">The Difference</p>
-              <h2 className="text-5xl md:text-7xl">Standard vs. WheelsGlow</h2>
+              <h2 className="text-[8vw] md:text-[6vw] leading-[0.85]">
+                Standard vs.<br />
+                <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>WheelsGlow</span>
+              </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-[2rem] overflow-hidden">
               <div className="p-12 space-y-8 bg-black/20">
@@ -177,7 +183,10 @@ export default function App() {
           <div className="flex flex-col md:flex-row gap-20 items-center">
             <div className="flex-1">
               <p className="text-neon-accent font-mono text-xs uppercase tracking-[0.5em] mb-4">Unboxing Experience</p>
-              <h2 className="text-5xl md:text-7xl mb-12">Inside the Box</h2>
+              <h2 className="text-[10vw] md:text-[8vw] leading-[0.85] mb-12">
+                Inside<br />
+                <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>The Box</span>
+              </h2>
               <div className="space-y-8">
                 {[
                   { item: "The Poster", detail: "24x36 inch premium matte finish art print." },
@@ -216,7 +225,10 @@ export default function App() {
         <section className="px-6 md:px-20 py-32">
           <div className="mb-20">
             <p className="text-neon-accent font-mono text-xs uppercase tracking-[0.5em] mb-4">Community</p>
-            <h2 className="text-5xl md:text-7xl">The Enthusiasts</h2>
+            <h2 className="text-[10vw] md:text-[8vw] leading-[0.85]">
+              The<br />
+              <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>Enthusiasts</span>
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
@@ -241,7 +253,10 @@ export default function App() {
         {/* FAQ Section */}
         <section className="px-6 md:px-20 py-32">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-5xl md:text-7xl mb-16 text-center">FAQ</h2>
+            <h2 className="text-[12vw] md:text-[10vw] leading-[0.85] mb-16 text-center">
+              F A<br />
+              <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>Q</span>
+            </h2>
             <div className="space-y-6">
               {[
                 { q: "How do I power the poster?", a: "Each poster comes with a 12V DC power adapter. It plugs into any standard wall outlet. The cable is transparent to remain discreet." },
@@ -262,7 +277,10 @@ export default function App() {
         <section className="px-6 md:px-20 py-32 border-t border-white/5">
           <div className="glass p-12 md:p-24 rounded-[3rem] flex flex-col md:flex-row items-center justify-between gap-12">
             <div className="max-w-md">
-              <h2 className="text-4xl md:text-5xl mb-6">Join the Club</h2>
+              <h2 className="text-[8vw] md:text-[6vw] leading-[0.85] mb-6">
+                Join<br />
+                <span className="text-transparent stroke-white stroke-1" style={{ WebkitTextStroke: '1px white' }}>The Club</span>
+              </h2>
               <p className="text-white/40">Get early access to limited drops and custom customization tips.</p>
             </div>
             <div className="w-full md:w-auto flex flex-col sm:flex-row gap-4">
