@@ -15,9 +15,8 @@ export function Navbar() {
           <button onClick={() => setIsMenuOpen(true)} className="hover:scale-110 transition-transform">
             <Menu className="w-6 h-6" />
           </button>
-          <Link to="/" className="flex flex-col">
+          <Link to="/" className="flex items-center">
             <h1 className="text-3xl font-mono font-bold tracking-[0.2em] uppercase leading-none">WheelsGlow</h1>
-            <span className="text-[8px] font-mono tracking-widest text-white/50 uppercase mt-1">System // Core.01</span>
           </Link>
         </div>
         <div className="flex items-center gap-8">
