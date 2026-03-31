@@ -15,9 +15,17 @@ export function Home() {
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative z-10"
         >
-          <h2 className="text-[12vw] md:text-[15vw] leading-[0.85] mb-8">
+          <h2 className="text-[12vw] md:text-[15vw] leading-[0.85] mb-8 font-display">
             Light Up<br />
-            <span className="text-white">The Room</span>
+            <span 
+              className="text-transparent uppercase bg-[#1A0806] px-4 -ml-4" 
+              style={{ 
+                WebkitTextStroke: '2px rgba(255, 255, 255, 0.9)', 
+                letterSpacing: '-0.08em',
+              }}
+            >
+              THE ROOM
+            </span>
           </h2>
           
           <div className="flex flex-col md:flex-row md:items-end gap-12">

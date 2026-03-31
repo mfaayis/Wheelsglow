@@ -16,7 +16,15 @@ export function Navbar() {
             <Menu className="w-6 h-6" />
           </button>
           <Link to="/" className="flex items-center">
-            <h1 className="text-3xl font-mono font-bold tracking-[0.2em] uppercase leading-none">WheelsGlow</h1>
+            <h1 
+              className="text-4xl font-display uppercase leading-none text-transparent pl-2"
+              style={{ 
+                WebkitTextStroke: '1.5px rgba(255, 255, 255, 0.9)', 
+                letterSpacing: '-0.08em',
+              }}
+            >
+              WHEELSGLOW
+            </h1>
           </Link>
         </div>
         <div className="flex items-center gap-8">
