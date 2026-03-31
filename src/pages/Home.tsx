@@ -18,7 +18,7 @@ export function Home() {
           <h2 className="text-[12vw] md:text-[15vw] leading-[0.85] mb-8 font-display">
             Light Up<br />
             <span 
-              className="text-transparent uppercase bg-[#1A0806] px-4 -ml-4" 
+              className="text-transparent uppercase" 
               style={{ 
                 WebkitTextStroke: '2px rgba(255, 255, 255, 0.9)', 
                 letterSpacing: '-0.08em',
