@@ -51,9 +51,9 @@ export function ProductDetails() {
           {/* ── LEFT: Before/After Slider */}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
             <BeforeAfterSlider
-              image={product.image}
+              imageBefore={product.image}
+              imageAfter={product.imageOn || product.image}
               ledColor={product.color}
-              ledGlowPosition={product.ledGlowPosition}
               aspectRatio="4/3"
               initialPosition={48}
               className="rounded-2xl overflow-hidden"
@@ -208,10 +208,8 @@ export function ProductDetails() {
             <div className="max-w-md">
               <Link to={`/product/${otherProduct.id}`}>
                 <motion.div whileHover={{ scale: 1.01 }} className="glass rounded-2xl overflow-hidden flex items-center gap-5 p-4 cursor-pointer">
-                  <img src={otherProduct.image} alt={otherProduct.name}
-                    className="w-24 h-16 object-cover rounded-xl"
-                    style={{ filter: "brightness(0.5) grayscale(0.5)" }}
-                    referrerPolicy="no-referrer" />
+                  <img src={otherProduct.imageOn || otherProduct.image} alt={otherProduct.name}
+                    className="w-24 h-16 object-cover rounded-xl" />
                   <div>
                     <p className="font-bold">{otherProduct.name}</p>
                     <p className="text-xs text-white/40 font-mono">{otherProduct.description}</p>

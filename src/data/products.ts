@@ -6,7 +6,9 @@ export const PRODUCTS: Product[] = [
     name: "Porsche 911 GT3 RS",
     price: 1299,
     originalPrice: 1799,
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=90&w=1200",
+    // Real product photos — before (LED off) and after (LED on)
+    image: "/porsche-off.png",
+    imageOn: "/porsche-on.png",
     color: "#FF2200",
     description: "Racing Red Taillight Edition",
     category: "cars",
@@ -31,7 +33,9 @@ export const PRODUCTS: Product[] = [
     name: "BMW M4 Competition",
     price: 1299,
     originalPrice: 1799,
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&q=90&w=1200",
+    // Real product photos — before (LED off) and after (LED on)
+    image: "/bmw-off.png",
+    imageOn: "/bmw-on.png",
     color: "#00BFFF",
     description: "Angel Eye Blue Edition",
     category: "cars",

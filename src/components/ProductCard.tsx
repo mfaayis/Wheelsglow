@@ -11,6 +11,7 @@ export interface Product {
   price: number;
   originalPrice?: number;
   image: string;
+  imageOn?: string;   // LED ON image (optional — falls back to CSS glow if not set)
   color: string;
   description: string;
   category?: string;
@@ -26,9 +27,9 @@ export interface Product {
 
 const BADGE_STYLES: Record<string, string> = {
   "Best Seller": "bg-yellow-400 text-black",
-  "Hot": "bg-neon-accent text-white",
-  "New": "bg-cyan-400 text-black",
-  "Limited": "bg-white text-black",
+  "Hot":         "bg-neon-accent text-white",
+  "New":         "bg-cyan-400 text-black",
+  "Limited":     "bg-white text-black",
 };
 
 export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
@@ -43,12 +44,12 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
       transition={{ duration: 0.6 }}
       className="group relative glass rounded-2xl overflow-hidden flex flex-col"
     >
-      {/* Before/After Slider — main visual */}
+      {/* Before/After Slider */}
       <div className="relative">
         <BeforeAfterSlider
-          image={product.image}
+          imageBefore={product.image}
+          imageAfter={product.imageOn || product.image}
           ledColor={product.color}
-          ledGlowPosition={product.ledGlowPosition}
           initialPosition={52}
         />
 
@@ -62,21 +63,15 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
 
       {/* Info */}
       <div className="p-5 flex flex-col gap-4 flex-1">
-        <div
-          className="cursor-pointer"
-          onClick={() => navigate(`/product/${product.id}`)}
-        >
+        <div className="cursor-pointer" onClick={() => navigate(`/product/${product.id}`)}>
           <div className="flex items-start justify-between mb-1">
             <h3 className="text-lg leading-tight pr-2">{product.name}</h3>
             {/* LED color dots */}
             {product.ledColors && (
               <div className="flex gap-1.5 mt-1 flex-shrink-0">
                 {product.ledColors.map((c, i) => (
-                  <div
-                    key={i}
-                    className="w-2.5 h-2.5 rounded-full border border-white/10"
-                    style={{ background: c, boxShadow: `0 0 5px ${c}` }}
-                  />
+                  <div key={i} className="w-2.5 h-2.5 rounded-full border border-white/10"
+                    style={{ background: c, boxShadow: `0 0 5px ${c}` }} />
                 ))}
               </div>
             )}
@@ -104,8 +99,7 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
               onClick={() => addToCart(product)}
               className="bg-white text-black px-4 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wide hover:bg-neon-accent hover:text-white transition-all flex items-center gap-2"
             >
-              <ShoppingCart className="w-3.5 h-3.5" />
-              Add
+              <ShoppingCart className="w-3.5 h-3.5" /> Add
             </motion.button>
             <Link to={`/product/${product.id}`}>
               <motion.button
