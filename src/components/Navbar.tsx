@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Menu, ShoppingBag, User, X, BarChart2, MapPin } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Menu, ShoppingBag, User, X, LogOut } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
   const { totalItems } = useCart();
+  const { user, isAdmin, signOut } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +26,11 @@ export function Navbar() {
   }, []);
 
   useEffect(() => { setIsMenuOpen(false); }, [location]);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
 
   return (
     <>
@@ -84,15 +92,27 @@ export function Navbar() {
 
         {/* Right icons */}
         <div className="flex items-center gap-4 text-white">
-          <Link to="/admin" className="opacity-40 hover:opacity-100 transition-opacity" title="Admin">
-            <BarChart2 className="w-4 h-4" />
-          </Link>
-          <Link to="/track" className="opacity-40 hover:opacity-100 transition-opacity md:hidden" title="Track">
-            <MapPin className="w-4 h-4" />
-          </Link>
-          <Link to="/login" className="group">
-            <User className="w-5 h-5 group-hover:text-neon-accent transition-colors" />
-          </Link>
+          {user ? (
+            <>
+              {/* User avatar or initial */}
+              <Link to={isAdmin ? "/admin" : "/login"} className="flex items-center gap-2 group" title={isAdmin ? "Dashboard" : "Account"}>
+                {user.photoURL ? (
+                  <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full border border-white/20 group-hover:border-neon-accent transition-colors" />
+                ) : (
+                  <div className="w-6 h-6 rounded-full bg-neon-accent/20 border border-neon-accent/40 flex items-center justify-center text-[10px] font-bold text-neon-accent">
+                    {(user.displayName || user.email || '?')[0].toUpperCase()}
+                  </div>
+                )}
+              </Link>
+              <button onClick={handleSignOut} className="opacity-40 hover:opacity-100 transition-opacity" title="Sign out">
+                <LogOut className="w-4 h-4" />
+              </button>
+            </>
+          ) : (
+            <Link to="/login" className="group">
+              <User className="w-5 h-5 group-hover:text-neon-accent transition-colors" />
+            </Link>
+          )}
           <Link to="/cart" className="relative group">
             <ShoppingBag className="w-5 h-5 group-hover:text-neon-accent transition-colors" />
             <AnimatePresence>
@@ -153,7 +173,7 @@ export function Navbar() {
                 ))}
 
                 <div className="mt-6 space-y-3">
-                  {[{ to: '/faq', label: 'FAQ' }, { to: '/contact', label: 'Contact' }, { to: '/shipping', label: 'Shipping' }, { to: '/admin', label: 'Admin Dashboard' }].map(({ to, label }) => (
+                  {[{ to: '/faq', label: 'FAQ' }, { to: '/contact', label: 'Contact' }, { to: '/shipping', label: 'Shipping' }].map(({ to, label }) => (
                     <Link key={to} to={to} onClick={() => setIsMenuOpen(false)} className="block text-[10px] font-mono tracking-widest uppercase text-white/25 hover:text-white transition-colors">
                       {label}
                     </Link>
@@ -161,9 +181,28 @@ export function Navbar() {
                 </div>
               </div>
 
-              <div className="p-7 border-t border-white/5 flex gap-3">
-                <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 font-mono text-xs tracking-widest uppercase border border-white/10 rounded-xl hover:bg-white/5 transition-colors text-white">Login</Link>
-                <Link to="/register" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 font-mono text-xs tracking-widest uppercase bg-neon-accent text-white rounded-xl hover:bg-neon-orange transition-colors">Register</Link>
+              <div className="p-7 border-t border-white/5">
+                {user ? (
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium truncate">{user.displayName || user.email}</p>
+                      <p className="text-[10px] font-mono text-white/30 uppercase tracking-widest">{isAdmin ? 'Admin' : 'Customer'}</p>
+                    </div>
+                    {isAdmin && (
+                      <Link to="/admin" onClick={() => setIsMenuOpen(false)} className="px-3 py-2 text-[10px] font-mono uppercase tracking-widest bg-neon-accent/15 text-neon-accent rounded-lg border border-neon-accent/25 hover:bg-neon-accent/25 transition-colors">
+                        Dashboard
+                      </Link>
+                    )}
+                    <button onClick={() => { handleSignOut(); setIsMenuOpen(false); }} className="p-2 text-white/40 hover:text-white transition-colors" title="Sign out">
+                      <LogOut className="w-4 h-4" />
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex gap-3">
+                    <Link to="/login" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 font-mono text-xs tracking-widest uppercase border border-white/10 rounded-xl hover:bg-white/5 transition-colors text-white">Login</Link>
+                    <Link to="/register" onClick={() => setIsMenuOpen(false)} className="flex-1 text-center py-3 font-mono text-xs tracking-widest uppercase bg-neon-accent text-white rounded-xl hover:bg-neon-orange transition-colors">Register</Link>
+                  </div>
+                )}
               </div>
               <div className="h-0.5" style={{ background: 'linear-gradient(90deg, #FF003D, #FF6B00)' }} />
             </motion.div>

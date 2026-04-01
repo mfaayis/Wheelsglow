@@ -21,8 +21,8 @@ export function Footer() {
           <ul className="space-y-4 text-sm text-white/40">
             <li className="hover:text-white cursor-pointer"><Link to="/collection">All Posters</Link></li>
             <li className="hover:text-white cursor-pointer"><Link to="/collection">Car Series</Link></li>
-            <li className="hover:text-white cursor-pointer"><Link to="/collection">Motorcycle Series</Link></li>
             <li className="hover:text-white cursor-pointer"><Link to="/custom">Custom Orders</Link></li>
+            <li className="hover:text-white cursor-pointer"><Link to="/track">Track Order</Link></li>
           </ul>
         </div>
         <div className="space-y-6">
