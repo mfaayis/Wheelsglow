@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db, isFirebaseReady } from "../lib/firebase";
+import { useAuth } from "../context/AuthContext";
 
 const ADMIN_EMAIL = (import.meta as any).env?.VITE_ADMIN_EMAIL || "fayismuhammed001@gmail.com";
 const googleProvider = new GoogleAuthProvider();
@@ -29,6 +30,7 @@ const GoogleIcon = () => (
 
 export const Login = () => {
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
@@ -43,6 +45,13 @@ export const Login = () => {
       navigate("/account");
     }
   };
+
+  // Auto-redirect if already logged in
+  useEffect(() => {
+    if (!authLoading && user) {
+      redirectAfterLogin(user.email || "");
+    }
+  }, [user, authLoading, navigate]);
 
   // Handle redirect result (for when popup was blocked)
   useEffect(() => {
@@ -191,6 +200,7 @@ export const Login = () => {
 
 export const Register = () => {
   const navigate = useNavigate();
+  const { user, loading: authLoading } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -198,6 +208,17 @@ export const Register = () => {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Auto-redirect if already logged in
+  useEffect(() => {
+    if (!authLoading && user) {
+      if (user.email === ADMIN_EMAIL) {
+        navigate("/admin");
+      } else {
+        navigate("/account");
+      }
+    }
+  }, [user, authLoading, navigate]);
 
   const saveUserToFirestore = (uid: string, userData: any) => {
     if (!db) return;

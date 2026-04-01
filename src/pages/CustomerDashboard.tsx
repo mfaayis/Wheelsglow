@@ -30,7 +30,7 @@ const statusConfig: Record<string, { icon: any; color: string; bg: string }> = {
 };
 
 export function CustomerDashboard() {
-  const { user, signOut } = useAuth();
+  const { user, loading, signOut } = useAuth();
   const { items, totalItems, totalPrice } = useCart();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'cart' | 'wishlist'>('overview');
@@ -38,9 +38,14 @@ export function CustomerDashboard() {
   const [loadingOrders, setLoadingOrders] = useState(true);
 
   useEffect(() => {
-    if (!user) { navigate('/login'); return; }
-    loadOrders();
-  }, [user]);
+    if (!loading && !user) {
+      navigate('/login');
+      return;
+    }
+    if (user) {
+      loadOrders();
+    }
+  }, [user, loading, navigate]);
 
   const loadOrders = async () => {
     if (!db || !user?.email) { setLoadingOrders(false); return; }
@@ -58,6 +63,14 @@ export function CustomerDashboard() {
     await signOut();
     navigate('/');
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-neon-accent/30 border-t-neon-accent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!user) return null;
 
