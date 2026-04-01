@@ -10,15 +10,17 @@ import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
 import { About, CustomOrders, ShippingPolicy, Returns, FAQPage, Contact, PrivacyPolicy, TermsOfService } from "./pages/InfoPages";
 import { Login, Register } from "./pages/Auth";
+import { AdminDashboard } from "./pages/AdminDashboard";
+import { TrackOrder } from "./pages/TrackOrder";
 
 export default function App() {
   return (
     <CartProvider>
       <Router>
-        <div className="min-h-screen flex flex-col pt-24">
+        <div className="min-h-screen flex flex-col pt-[54px]">
           <CursorBackground />
           <Navbar />
-          
+
           <div className="flex-1">
             <Routes>
               <Route path="/" element={<Home />} />
@@ -36,6 +38,8 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsOfService />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/track" element={<TrackOrder />} />
             </Routes>
           </div>
 
