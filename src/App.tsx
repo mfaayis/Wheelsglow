@@ -4,6 +4,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CursorBackground } from "./components/CursorBackground";
 import { Navbar } from "./components/Navbar";
 import { Footer } from "./components/Footer";
+import { ScrollToTop } from "./components/ScrollToTop";
 import { Home } from "./pages/Home";
 import { Collection } from "./pages/Collection";
 import { ProductDetails } from "./pages/ProductDetails";
@@ -20,6 +21,7 @@ export default function App() {
       <CartProvider>
         <Router>
           <div className="min-h-screen flex flex-col pt-[54px]">
+            <ScrollToTop />
             <CursorBackground />
             <Navbar />
 

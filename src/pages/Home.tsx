@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Zap, Star, ChevronLeft, ChevronRight, Check, X } from "lucide-react";
+import { ArrowRight, Zap, Star, ChevronLeft, ChevronRight, Check, X, ShoppingBag } from "lucide-react";
 import { ProductCard } from "../components/ProductCard";
 import { MarqueeTicker } from "../components/MarqueeTicker";
 import { AnimatedCounter } from "../components/AnimatedCounter";
@@ -101,6 +101,12 @@ export function Home() {
 
           <motion.div className="flex flex-col sm:flex-row gap-4 mb-16"
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1 }}>
+            <Link to="/product/1">
+              <motion.button whileHover={{ scale: 1.04, boxShadow: '0 0 30px rgba(255,0,61,0.3)' }} whileTap={{ scale: 0.96 }}
+                className="bg-neon-accent text-white px-8 py-4 rounded-full font-sans font-bold text-sm flex items-center gap-3 transition-all uppercase tracking-wider shadow-lg shadow-neon-accent/20">
+                <ShoppingBag className="w-5 h-5" /> Buy Now — ₹1,299
+              </motion.button>
+            </Link>
             <Link to="/collection">
               <motion.button whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.96 }}
                 className="bg-white text-black px-8 py-4 rounded-full font-sans font-bold text-sm flex items-center gap-3 hover:bg-neon-accent hover:text-white transition-all uppercase tracking-wider">

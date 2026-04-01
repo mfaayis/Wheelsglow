@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Eye, EyeOff, Loader2, X } from "lucide-react";
@@ -6,13 +6,15 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   GoogleAuthProvider,
   updateProfile,
 } from "firebase/auth";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db, isFirebaseReady } from "../lib/firebase";
 
-const ADMIN_EMAIL = (import.meta as any).env?.VITE_ADMIN_EMAIL || "faismuhammed001@gmail.com";
+const ADMIN_EMAIL = (import.meta as any).env?.VITE_ADMIN_EMAIL || "fayismuhammed001@gmail.com";
 const googleProvider = new GoogleAuthProvider();
 
 // ── Google "G" SVG logo
@@ -42,6 +44,24 @@ export const Login = () => {
     }
   };
 
+  // Handle redirect result (for when popup was blocked)
+  useEffect(() => {
+    if (!auth) return;
+    getRedirectResult(auth).then(result => {
+      if (result?.user) {
+        if (db) {
+          setDoc(doc(db, "users", result.user.uid), {
+            name: result.user.displayName,
+            email: result.user.email,
+            photoURL: result.user.photoURL,
+            updatedAt: serverTimestamp(),
+          }, { merge: true });
+        }
+        redirectAfterLogin(result.user.email || "");
+      }
+    }).catch(() => {});
+  }, []);
+
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isFirebaseReady || !auth) return setError("Firebase not configured.");
@@ -67,9 +87,9 @@ export const Login = () => {
     setGoogleLoading(true);
     setError("");
     try {
+      // Try popup first
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      // Save/update user in Firestore
       if (db) {
         await setDoc(doc(db, "users", user.uid), {
           name: user.displayName,
@@ -80,8 +100,14 @@ export const Login = () => {
       }
       redirectAfterLogin(user.email || "");
     } catch (err: any) {
-      if (err.code !== "auth/popup-closed-by-user") {
-        setError("Google sign-in failed. Please try again.");
+      if (err.code === "auth/popup-blocked" || err.code === "auth/cancelled-popup-request" || err.code === "auth/popup-closed-by-user") {
+        // Fallback to redirect
+        try {
+          await signInWithRedirect(auth, googleProvider);
+        } catch { setError("Google sign-in failed."); }
+      } else if (err.code !== "auth/popup-closed-by-user") {
+        console.error("Google auth error:", err.code, err.message);
+        setError("Google sign-in failed: " + (err.message || "Please try again."));
       }
     } finally { setGoogleLoading(false); }
   };

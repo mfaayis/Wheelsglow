@@ -143,7 +143,7 @@ export function Navbar() {
             <motion.div
               initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 28, stiffness: 220 }}
-              className="fixed top-0 left-0 h-full w-[85vw] max-w-sm z-[70] flex flex-col"
+              className="fixed top-0 left-0 h-full w-[85vw] max-w-sm z-[70] flex flex-col overflow-y-auto"
               style={{ background: 'rgba(0,0,0,0.97)', borderRight: '1px solid rgba(255,255,255,0.07)' }}
             >
               <div className="flex justify-between items-center p-7 border-b border-white/5">
