@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { sendOrderConfirmation, sendTrackingUpdate } = require('../emailService');
 
 // ── GET /api/orders/:id  (public — for tracking)
 router.get('/orders/:id', (req, res) => {
@@ -53,6 +54,9 @@ router.post('/orders', (req, res) => {
   writeDB(db);
 
   console.log(`✅ New order: ${orderId} — ${customerName} — ${productName} (${size}) — ₹${amount}`);
+
+  // Send order confirmation email (non-blocking)
+  sendOrderConfirmation(newOrder).catch(err => console.error('Email error:', err));
 
   res.status(201).json({ success: true, data: { orderId, status: 'Processing' }, message: `Order ${orderId} placed successfully!` });
 });
@@ -113,7 +117,13 @@ router.patch('/admin/orders/:id', (req, res) => {
   db.orders[idx].updatedAt = new Date().toISOString();
   writeDB(db);
 
-  res.json({ success: true, data: db.orders[idx] });
+  // Send tracking update email (non-blocking)
+  const updatedOrder = db.orders[idx];
+  if (status && status !== 'Processing') {
+    sendTrackingUpdate(updatedOrder).catch(err => console.error('Email error:', err));
+  }
+
+  res.json({ success: true, data: updatedOrder });
 });
 
 // ── DELETE /api/admin/orders/:id  (admin)

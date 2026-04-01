@@ -33,13 +33,22 @@ export const dataApi = {
       return r.data.orderId;
     }
     const orderId = genOrderId();
-    await setDoc(doc(db, 'orders', orderId), {
+    const orderData = {
       ...payload,
       id: orderId,
       status: 'Processing',
       trackingId: '',
       createdAt: Timestamp.now(),
-    });
+    };
+    await setDoc(doc(db, 'orders', orderId), orderData);
+
+    // Send confirmation email via serverless function (non-blocking)
+    fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'order_confirmation', order: { ...payload, id: orderId, amount: payload.amount } }),
+    }).catch(() => {}); // silent fail — email is non-critical
+
     return orderId;
   },
 
