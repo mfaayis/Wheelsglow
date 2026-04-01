@@ -95,7 +95,7 @@ export function Navbar() {
           {user ? (
             <>
               {/* User avatar or initial */}
-              <Link to={isAdmin ? "/admin" : "/login"} className="flex items-center gap-2 group" title={isAdmin ? "Dashboard" : "Account"}>
+              <Link to={isAdmin ? "/admin" : "/account"} className="flex items-center gap-2 group" title={isAdmin ? "Dashboard" : "My Account"}>
                 {user.photoURL ? (
                   <img src={user.photoURL} alt="" className="w-6 h-6 rounded-full border border-white/20 group-hover:border-neon-accent transition-colors" />
                 ) : (

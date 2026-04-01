@@ -40,7 +40,7 @@ export const Login = () => {
     if (userEmail === ADMIN_EMAIL) {
       navigate("/admin");
     } else {
-      navigate("/");
+      navigate("/account");
     }
   };
 
@@ -87,27 +87,24 @@ export const Login = () => {
     setGoogleLoading(true);
     setError("");
     try {
-      // Try popup first
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
+      // Non-blocking Firestore write — don't let permissions error block login
       if (db) {
-        await setDoc(doc(db, "users", user.uid), {
+        setDoc(doc(db, "users", user.uid), {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
           updatedAt: serverTimestamp(),
-        }, { merge: true });
+        }, { merge: true }).catch(() => {}); // silent fail
       }
       redirectAfterLogin(user.email || "");
     } catch (err: any) {
-      if (err.code === "auth/popup-blocked" || err.code === "auth/cancelled-popup-request" || err.code === "auth/popup-closed-by-user") {
-        // Fallback to redirect
-        try {
-          await signInWithRedirect(auth, googleProvider);
-        } catch { setError("Google sign-in failed."); }
+      if (err.code === "auth/popup-blocked" || err.code === "auth/cancelled-popup-request") {
+        try { await signInWithRedirect(auth, googleProvider); } catch { setError("Google sign-in failed."); }
       } else if (err.code !== "auth/popup-closed-by-user") {
         console.error("Google auth error:", err.code, err.message);
-        setError("Google sign-in failed: " + (err.message || "Please try again."));
+        setError("Google sign-in failed. Please try again.");
       }
     } finally { setGoogleLoading(false); }
   };
@@ -202,12 +199,12 @@ export const Register = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const saveUserToFirestore = async (uid: string, userData: any) => {
+  const saveUserToFirestore = (uid: string, userData: any) => {
     if (!db) return;
-    await setDoc(doc(db, "users", uid), {
+    setDoc(doc(db, "users", uid), {
       ...userData,
       createdAt: serverTimestamp(),
-    }, { merge: true });
+    }, { merge: true }).catch(() => {}); // non-blocking
   };
 
   const handleRegister = async (e: React.FormEvent) => {
@@ -219,8 +216,8 @@ export const Register = () => {
     try {
       const result = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(result.user, { displayName: name });
-      await saveUserToFirestore(result.user.uid, { name, email, photoURL: null });
-      navigate("/");
+      saveUserToFirestore(result.user.uid, { name, email, photoURL: null });
+      navigate("/account");
     } catch (err: any) {
       const msgs: Record<string, string> = {
         "auth/email-already-in-use": "An account with this email already exists.",
@@ -238,8 +235,8 @@ export const Register = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      await saveUserToFirestore(user.uid, { name: user.displayName, email: user.email, photoURL: user.photoURL });
-      navigate("/");
+      saveUserToFirestore(user.uid, { name: user.displayName, email: user.email, photoURL: user.photoURL });
+      navigate("/account");
     } catch (err: any) {
       if (err.code !== "auth/popup-closed-by-user") {
         setError("Google sign-up failed. Please try again.");

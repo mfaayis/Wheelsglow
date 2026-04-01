@@ -13,6 +13,7 @@ import { Checkout } from "./pages/Checkout";
 import { About, CustomOrders, ShippingPolicy, Returns, FAQPage, Contact, PrivacyPolicy, TermsOfService } from "./pages/InfoPages";
 import { Login, Register } from "./pages/Auth";
 import { AdminDashboard } from "./pages/AdminDashboard";
+import { CustomerDashboard } from "./pages/CustomerDashboard";
 import { TrackOrder } from "./pages/TrackOrder";
 
 export default function App() {
@@ -43,6 +44,7 @@ export default function App() {
                 <Route path="/privacy" element={<PrivacyPolicy />} />
                 <Route path="/terms" element={<TermsOfService />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/account" element={<CustomerDashboard />} />
                 <Route path="/track" element={<TrackOrder />} />
               </Routes>
             </div>
