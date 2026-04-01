@@ -4,7 +4,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 1,
     name: "Porsche 911 GT3 RS",
-    price: 1299,
+    price: 1,
     originalPrice: 1799,
     // Real product photos — before (LED off) and after (LED on)
     image: "/porsche-off.png",
@@ -59,7 +59,7 @@ export const PRODUCTS: Product[] = [
 
 export const SIZES = ["A3 — 30×42cm", "A2 — 42×59cm", "A1 — 59×84cm"];
 export const SIZE_PRICES: Record<string, number> = {
-  "A3 — 30×42cm": 999,
+  "A3 — 30×42cm": 1,
   "A2 — 42×59cm": 1299,
   "A1 — 59×84cm": 1699,
 };
