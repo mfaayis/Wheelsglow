@@ -53,13 +53,13 @@ export const CursorBackground = () => {
       <div
         ref={glowRef}
         className="absolute top-0 left-0 transition-opacity duration-700"
-        style={{ width: 400, height: 400, opacity: visible ? 1 : 0 }}
+        style={{ width: 700, height: 700, opacity: visible ? 1 : 0 }}
       >
         <div
           className="w-full h-full rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(255,0,61,0.12) 0%, rgba(255,107,0,0.04) 50%, transparent 70%)',
-            filter: 'blur(20px)',
+            background: 'radial-gradient(circle, rgba(255,0,61,0.18) 0%, rgba(255,107,0,0.07) 45%, transparent 70%)',
+            filter: 'blur(28px)',
           }}
         />
       </div>
@@ -68,13 +68,13 @@ export const CursorBackground = () => {
       <div
         ref={ambientRef}
         className="absolute top-0 left-0 transition-opacity duration-1000"
-        style={{ width: 900, height: 900, opacity: visible ? 0.6 : 0 }}
+        style={{ width: 1400, height: 1400, opacity: visible ? 0.75 : 0 }}
       >
         <div
           className="w-full h-full rounded-full"
           style={{
-            background: 'radial-gradient(circle, rgba(255,0,61,0.05) 0%, rgba(255,107,0,0.03) 40%, transparent 70%)',
-            filter: 'blur(60px)',
+            background: 'radial-gradient(circle, rgba(255,0,61,0.07) 0%, rgba(255,107,0,0.04) 40%, transparent 70%)',
+            filter: 'blur(80px)',
           }}
         />
       </div>
