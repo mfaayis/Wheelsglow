@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ShoppingCart, Zap } from "lucide-react";
+import { ShoppingCart, Zap, Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import { BeforeAfterSlider } from "./BeforeAfterSlider";
 
 export interface Product {
@@ -34,7 +35,10 @@ const BADGE_STYLES: Record<string, string> = {
 
 export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
   const { addToCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
   const navigate = useNavigate();
+
+  const isWished = isInWishlist(product.id);
 
   return (
     <motion.div
@@ -59,6 +63,16 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
             {product.badge}
           </div>
         )}
+
+        {/* Wishlist Button */}
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={(e) => { e.stopPropagation(); toggleWishlist(product.id); }}
+          className="absolute top-3 right-3 z-40 p-2 rounded-full glass border border-white/10 hover:border-white/25 transition-colors group/heart"
+        >
+          <Heart className={`w-4 h-4 transition-colors ${isWished ? 'fill-neon-accent text-neon-accent drop-shadow-[0_0_8px_rgba(255,0,61,0.5)]' : 'text-white/50 group-hover/heart:text-white'}`} />
+        </motion.button>
       </div>
 
       {/* Info */}

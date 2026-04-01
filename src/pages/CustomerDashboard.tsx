@@ -3,7 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { Package, ShoppingBag, User, LogOut, Clock, Truck, CheckCircle, XCircle, ChevronRight, MapPin, Heart, Settings } from 'lucide-react';
+import { useWishlist } from '../context/WishlistContext';
+import { Package, ShoppingBag, User, LogOut, Clock, Truck, CheckCircle, XCircle, ChevronRight, MapPin, Heart, Trash2 } from 'lucide-react';
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { PRODUCTS } from '../data/products';
@@ -32,6 +33,7 @@ const statusConfig: Record<string, { icon: any; color: string; bg: string }> = {
 export function CustomerDashboard() {
   const { user, loading, signOut } = useAuth();
   const { items, totalItems, totalPrice } = useCart();
+  const { wishlistIds, removeFromWishlist } = useWishlist();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'overview' | 'orders' | 'cart' | 'wishlist'>('overview');
   const [orders, setOrders] = useState<Order[]>([]);
@@ -141,6 +143,9 @@ export function CustomerDashboard() {
             )}
             {tab.id === 'orders' && orders.length > 0 && (
               <span className="bg-white/10 text-white/50 text-[9px] px-1.5 py-0.5 rounded-full">{orders.length}</span>
+            )}
+            {tab.id === 'wishlist' && wishlistIds.length > 0 && (
+              <span className="bg-white/10 text-white/50 text-[9px] px-1.5 py-0.5 rounded-full">{wishlistIds.length}</span>
             )}
           </motion.button>
         ))}
@@ -409,16 +414,47 @@ export function CustomerDashboard() {
         {activeTab === 'wishlist' && (
           <motion.div key="wishlist" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
             <h2 className="text-xl font-display mb-6">Wishlist</h2>
-            <div className="glass rounded-2xl p-16 text-center border border-white/5">
-              <Heart className="w-16 h-16 text-white/8 mx-auto mb-6" />
-              <h3 className="text-xl font-display mb-2">Coming Soon</h3>
-              <p className="text-white/35 text-sm mb-6">Save your favorite posters here for later. This feature is coming in the next update!</p>
-              <Link to="/collection">
-                <motion.button whileHover={{ scale: 1.04 }} className="bg-white text-black px-8 py-3 rounded-xl font-bold text-sm uppercase tracking-widest">
-                  Explore Collection
-                </motion.button>
-              </Link>
-            </div>
+            {wishlistIds.length === 0 ? (
+              <div className="glass rounded-2xl p-16 text-center border border-white/5">
+                <Heart className="w-16 h-16 text-white/8 mx-auto mb-6" />
+                <h3 className="text-xl font-display mb-2">Your wishlist is empty</h3>
+                <p className="text-white/35 text-sm mb-6">Explore the collections and hit the heart icon to save items here.</p>
+                <Link to="/collection">
+                  <motion.button whileHover={{ scale: 1.04 }} className="bg-white text-black px-8 py-3 rounded-xl font-bold text-sm uppercase tracking-widest">
+                    Explore Collection
+                  </motion.button>
+                </Link>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {wishlistIds.map((id, i) => {
+                  const product = PRODUCTS.find(p => p.id === id);
+                  if (!product) return null;
+                  return (
+                    <motion.div key={id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+                      className="glass rounded-2xl border border-white/5 overflow-hidden group">
+                      <div className="relative aspect-square overflow-hidden bg-black/50">
+                        <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                        <motion.button whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={() => removeFromWishlist(product.id)}
+                          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white/50 hover:text-neon-accent transition-colors border border-white/10">
+                          <Trash2 className="w-4 h-4" />
+                        </motion.button>
+                      </div>
+                      <div className="p-5">
+                        <h3 className="font-display text-lg mb-1">{product.name}</h3>
+                        <p className="text-neon-accent font-bold mb-4">₹{product.price.toLocaleString('en-IN')}</p>
+                        <Link to={`/product/${product.id}`}>
+                          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+                            className="w-full bg-white/5 hover:bg-white/10 border border-white/10 py-2.5 rounded-xl text-xs font-mono uppercase tracking-widest transition-colors flex items-center justify-center gap-2">
+                            <ShoppingBag className="w-3.5 h-3.5" /> View Product
+                          </motion.button>
+                        </Link>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

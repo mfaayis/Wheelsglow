@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, ArrowLeft, Check, Package, Shield, Truck, Zap } from "lucide-react";
+import { ShoppingCart, ArrowLeft, Check, Package, Shield, Truck, Zap, Heart } from "lucide-react";
 import { PRODUCTS, SIZE_PRICES } from "../data/products";
 import { BeforeAfterSlider } from "../components/BeforeAfterSlider";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 
 export function ProductDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { isInWishlist, toggleWishlist } = useWishlist();
+  
   const product = PRODUCTS.find(p => p.id === parseInt(id || "0"));
 
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[1] || "");
@@ -146,11 +149,21 @@ export function ProductDetails() {
                 <motion.button
                   whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
                   onClick={() => addToCart({ ...product, price: currentPrice })}
-                  className="w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wide bg-neon-accent text-white hover:bg-orange-500 transition-all flex items-center justify-center gap-2"
+                  className="w-full h-full py-4 rounded-xl font-bold text-sm uppercase tracking-wide bg-neon-accent text-white hover:bg-orange-500 transition-all flex items-center justify-center gap-2"
                 >
                   <Zap className="w-4 h-4" /> Buy Now
                 </motion.button>
               </Link>
+              
+              {/* Wishlist Button */}
+              <motion.button
+                whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
+                onClick={() => toggleWishlist(product.id)}
+                className="w-14 h-14 rounded-xl glass border border-white/10 flex items-center justify-center group shrink-0 hover:bg-white/5 transition-colors"
+                title="Add to Wishlist"
+              >
+                <Heart className={`w-5 h-5 transition-colors ${isInWishlist(product.id) ? 'fill-neon-accent text-neon-accent' : 'text-white/50 group-hover:text-white'}`} />
+              </motion.button>
             </div>
 
             {/* Trust badges */}
