@@ -25,14 +25,14 @@ module.exports = async function handler(req, res) {
   try {
     if (type === 'order_confirmation') {
       await resend.emails.send({
-        from: 'WheelsGlow <orders@wheelsglow.com>',
+        from: 'WheelsGlow <onboarding@resend.dev>',
         to: order.customerEmail,
         subject: `Order Confirmed — ${order.id} | WheelsGlow`,
         html: buildOrderConfirmationHTML(order),
       });
     } else if (type === 'tracking_update') {
       await resend.emails.send({
-        from: 'WheelsGlow <orders@wheelsglow.com>',
+        from: 'WheelsGlow <onboarding@resend.dev>',
         to: order.customerEmail,
         subject: `Order ${order.status} — ${order.id} | WheelsGlow`,
         html: buildTrackingUpdateHTML(order),

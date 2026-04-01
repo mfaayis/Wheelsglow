@@ -5,7 +5,7 @@
 const { Resend } = require('resend');
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY || '';
-const FROM_EMAIL = 'WheelsGlow <orders@wheelsglow.com>';
+const FROM_EMAIL = 'WheelsGlow <onboarding@resend.dev>';
 // During testing / if domain not verified, use: onboarding@resend.dev
 
 const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
