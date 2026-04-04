@@ -6,6 +6,7 @@ import { PRODUCTS, SIZE_PRICES } from "../data/products";
 import { BeforeAfterSlider } from "../components/BeforeAfterSlider";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { SEO } from "../components/SEO";
 
 export function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -41,6 +42,13 @@ export function ProductDetails() {
 
   return (
     <div className="min-h-screen">
+      <SEO 
+        title={`${product.name} | WheelsGlow LED Poster`}
+        description={`Buy the ${product.name} luxury LED art poster. ${product.description} Only the lights glow. Free shipping across India.`}
+        image={`https://wheelsglow.store${product.imageOn || product.image}`}
+        url={`https://wheelsglow.store/product/${product.id}`}
+        type="product"
+      />
       {/* Back button */}
       <div className="px-6 md:px-20 pt-8">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-white/40 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">

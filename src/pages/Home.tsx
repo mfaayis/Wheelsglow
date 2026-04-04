@@ -6,6 +6,7 @@ import { ProductCard } from "../components/ProductCard";
 import { MarqueeTicker } from "../components/MarqueeTicker";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { PRODUCTS } from "../data/products";
+import { SEO } from "../components/SEO";
 
 const SectionLabel = ({ label }: { label: string }) => (
   <p className="text-neon-accent font-mono text-[10px] uppercase tracking-[0.6em] mb-4 flex items-center gap-3">
@@ -65,6 +66,10 @@ export function Home() {
 
   return (
     <main>
+      <SEO 
+        title="WheelsGlow | Luxury LED Art Posters"
+        description="Premium LED wall art posters. Only the car's lights illuminate for a cinematic glow. Handcrafted, high-resolution prints with 16 color remote control."
+      />
       {/* ── HERO */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">

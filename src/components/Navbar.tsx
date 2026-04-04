@@ -165,16 +165,16 @@ export function Navbar() {
                   { to: '/about', label: 'About Us', num: '05' },
                 ].map(({ to, label, num }, i) => (
                   <motion.div key={to} initial={{ opacity: 0, x: -16 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.06 + 0.1 }}>
-                    <Link to={to} onClick={() => setIsMenuOpen(false)} className="flex items-baseline gap-4 py-4 border-b border-white/[0.04] group">
+                    <Link to={to} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-4 py-4 border-b border-white/[0.04] group">
                       <span className="text-neon-accent font-mono text-xs w-6">{num}</span>
-                      <span className="text-2xl font-display uppercase tracking-tight text-white group-hover:text-neon-accent transition-colors">{label}</span>
+                      <span className={`text-2xl font-display uppercase tracking-tight transition-colors group-hover:text-neon-accent ${location.pathname === to ? 'text-neon-accent' : 'text-white'}`}>{label}</span>
                     </Link>
                   </motion.div>
                 ))}
 
-                <div className="mt-6 space-y-3">
+                <div className="mt-6 space-y-3 pl-10">
                   {[{ to: '/faq', label: 'FAQ' }, { to: '/contact', label: 'Contact' }, { to: '/shipping', label: 'Shipping' }].map(({ to, label }) => (
-                    <Link key={to} to={to} onClick={() => setIsMenuOpen(false)} className="block text-[10px] font-mono tracking-widest uppercase text-white/25 hover:text-white transition-colors">
+                    <Link key={to} to={to} onClick={() => setIsMenuOpen(false)} className={`block text-[10px] font-mono tracking-widest uppercase transition-colors ${location.pathname === to ? 'text-neon-accent' : 'text-white/25 hover:text-white'}`}>
                       {label}
                     </Link>
                   ))}

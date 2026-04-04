@@ -2,10 +2,16 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ProductCard } from "../components/ProductCard";
 import { PRODUCTS } from "../data/products";
+import { SEO } from "../components/SEO";
 
 export function Collection() {
   return (
     <div className="px-6 md:px-20 py-16 min-h-screen">
+      <SEO 
+        title="All Posters | WheelsGlow Collection"
+        description="Browse our full collection of glowing LED car posters. Featuring Porsche, BMW, Nissan GTR, and more. Free shipping across India."
+        url="https://wheelsglow.store/collection"
+      />
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-14">
         <p className="text-neon-accent font-mono text-[10px] uppercase tracking-[0.6em] mb-4 flex items-center gap-3">

@@ -14,6 +14,7 @@ import {
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { auth, db, isFirebaseReady } from "../lib/firebase";
 import { useAuth } from "../context/AuthContext";
+import { SEO } from "../components/SEO";
 
 const ADMIN_EMAIL = (import.meta as any).env?.VITE_ADMIN_EMAIL || "fayismuhammed001@gmail.com";
 const googleProvider = new GoogleAuthProvider();
@@ -120,6 +121,7 @@ export const Login = () => {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-6 py-12 relative">
+      <SEO title="Login | WheelsGlow" description="Sign in to your account and track your orders." />
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 left-1/4 w-80 h-80 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #FF003D 0%, transparent 70%)', filter: 'blur(80px)' }} />
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #00BFFF 0%, transparent 70%)', filter: 'blur(80px)' }} />
@@ -267,6 +269,7 @@ export const Register = () => {
 
   return (
     <div className="min-h-[85vh] flex items-center justify-center px-6 py-12 relative">
+      <SEO title="Create Account | WheelsGlow" description="Join WheelsGlow an manage your orders." />
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/3 right-1/4 w-80 h-80 rounded-full opacity-10" style={{ background: 'radial-gradient(circle, #FF003D 0%, transparent 70%)', filter: 'blur(80px)' }} />
       </div>

@@ -1,4 +1,5 @@
 {
+  "name": "wheelsglow-store",
   "rewrites": [
     {
       "source": "/(.*)",
