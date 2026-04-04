@@ -199,7 +199,7 @@ export function Checkout() {
                 <div>
                   <label className="text-[10px] font-mono uppercase tracking-widest text-white/30 block mb-2">Phone *</label>
                   <input required value={form.customerPhone} onChange={e => set("customerPhone", e.target.value)} type="tel" pattern="[0-9]{10}"
-                    className="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-accent/60 transition-colors" placeholder="9876543210" />
+                    className="w-full bg-white/5 border border-white/10 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-neon-accent/60 transition-colors" placeholder="9995664588" />
                 </div>
               </div>
               <div>

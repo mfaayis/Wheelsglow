@@ -230,7 +230,7 @@ export function TrackOrder() {
                 <div>
                   <p className="text-sm font-semibold">Need help with your delivery?</p>
                   <p className="text-xs text-white/35 mt-0.5">
-                    WhatsApp us at <span className="text-green-400">+91 98765 43210</span> or email <span className="text-neon-accent">support@wheelsglow.store</span>
+                    WhatsApp us at <span className="text-green-400">+91 999 5664 588</span> or email <span className="text-neon-accent">wheelsglow.store@gmail.com</span>
                   </p>
                 </div>
               </div>

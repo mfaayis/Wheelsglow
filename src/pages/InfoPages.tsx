@@ -39,7 +39,7 @@ export const CustomOrders = () => (
   <PageLayout title="Custom Orders">
     <p>Have a specific car or motorcycle you want transformed into a WheelsGlow masterpiece?</p>
     <p>We offer bespoke commissions. You provide the high-resolution image of your vehicle, and our design team will map the LED backlighting specifically for its contours.</p>
-    <p>Contact us at <strong>commissions@wheelsglow.store</strong> with your request for a quote.</p>
+    <p>Contact us at <strong>wheelsglow.store@gmail.com</strong> with your request for a quote.</p>
   </PageLayout>
 );
 
@@ -125,8 +125,8 @@ export const Contact = () => {
 
         <div className="space-y-4 font-mono text-sm">
           <h3 className="text-xl font-sans font-bold text-white mb-6">Contact Information</h3>
-          <p><strong className="text-white uppercase inline-block min-w-[80px]">Email:</strong> support@wheelsglow.store</p>
-          <p><strong className="text-white uppercase inline-block min-w-[80px]">Phone:</strong> +91 999 999 9999</p>
+          <p><strong className="text-white uppercase inline-block min-w-[80px]">Email:</strong> wheelsglow.store@gmail.com</p>
+          <p><strong className="text-white uppercase inline-block min-w-[80px]">Phone:</strong> +91 999 5664 588</p>
           <p><strong className="text-white uppercase inline-block min-w-[80px]">Hours:</strong> Mon-Fri, 9AM - 6PM IST</p>
         </div>
       </div>
