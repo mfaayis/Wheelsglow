@@ -143,31 +143,15 @@ export function ProductDetails() {
               <p className="text-sm text-white/60 leading-relaxed">{product.ledEffect}</p>
             </div>
 
-            {/* Size Selector */}
+            {/* Standard Size Badge */}
             <div>
               <div className="flex justify-between items-center mb-3">
-                <p className="font-bold text-sm">Select Size</p>
-                <p className="text-xs text-white/40 font-mono">Size affects price</p>
+                <p className="font-bold text-sm">Size</p>
+                <p className="text-xs text-white/40 font-mono">Premium standard</p>
               </div>
-              <div className="flex flex-col gap-3">
-                {product.sizes?.map(size => {
-                  const price = SIZE_PRICES[size];
-                  const isSelected = selectedSize === size;
-                  return (
-                    <motion.button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      whileTap={{ scale: 0.98 }}
-                      className={`flex items-center justify-between px-5 py-4 rounded-xl border transition-all ${isSelected ? 'border-neon-accent bg-neon-accent/10 text-white' : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'}`}
-                    >
-                      <span className="font-mono text-sm">{size}</span>
-                      <div className="flex items-center gap-3">
-                        <span className="font-display text-lg">₹{price.toLocaleString('en-IN')}</span>
-                        {isSelected && <Check className="w-4 h-4 text-neon-accent" />}
-                      </div>
-                    </motion.button>
-                  );
-                })}
+              <div className="flex items-center justify-between px-5 py-4 rounded-xl border border-neon-accent bg-neon-accent/10 text-white cursor-default">
+                <span className="font-mono text-sm">{selectedSize}</span>
+                <Check className="w-4 h-4 text-neon-accent" />
               </div>
             </div>
 
