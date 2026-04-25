@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, ArrowLeft, Check, Package, Shield, Truck, Zap, Heart, ChevronDown } from "lucide-react";
+import { ShoppingCart, ArrowLeft, Check, Package, Shield, Truck, Zap, Heart, ChevronDown, Star } from "lucide-react";
 import { PRODUCTS, SIZE_PRICES } from "../data/products";
 import { BeforeAfterSlider } from "../components/BeforeAfterSlider";
 import { useCart } from "../context/CartContext";
@@ -307,6 +307,62 @@ export function ProductDetails() {
               ))}
             </div>
           </motion.div>
+        </div>
+
+
+        {/* ── Customer Reviews ── */}
+        <div className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
+            <div>
+              <h2 className="text-3xl font-display mb-1">Customer Reviews</h2>
+              <div className="flex items-center gap-2">
+                <div className="flex gap-0.5">{[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}</div>
+                <span className="text-white/60 text-sm font-mono">4.9 · {product.id === 1 ? '312' : '198'} reviews</span>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              {[5,4,3,2,1].map(s => (
+                <div key={s} className="flex items-center gap-1">
+                  <span className="text-xs text-white/40 font-mono">{s}★</span>
+                  <div className="w-16 h-1 rounded-full bg-white/10 overflow-hidden">
+                    <div className="h-full bg-yellow-400 rounded-full" style={{ width: s === 5 ? '88%' : s === 4 ? '9%' : '2%' }} />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {(product.id === 1 ? [
+              { name: "Arjun Verma", city: "Mumbai", rating: 5, date: "Apr 18, 2026", review: "Absolutely blown away. The red taillights glow exactly like the real car — not the whole frame, just the lights. It looks incredible in the dark. My garage has never looked this premium.", avatar: "AV", verified: true },
+              { name: "Priya Nair", city: "Chennai", rating: 5, date: "Apr 12, 2026", review: "Bought it for my husband who's obsessed with Porsche. He literally screamed when he saw it. The quality of the print is stunning and setup took about 5 minutes.", avatar: "PN", verified: true },
+              { name: "Karan Malhotra", city: "Delhi", rating: 5, date: "Apr 5, 2026", review: "Super premium product. The acrylic board feels solid and the LED glow is incredibly precise. Exactly what I expected — and the free shipping was fast too.", avatar: "KM", verified: true },
+            ] : [
+              { name: "Rahul Kumar", city: "Bengaluru", rating: 5, date: "Apr 20, 2026", review: "The BMW M4 angel eyes at midnight are absolutely cinematic. Just plug it in and it glows. Blue rings look exactly like the real headlights. Worth every rupee.", avatar: "RK", verified: true },
+              { name: "Sarah Mehta", city: "Delhi", rating: 5, date: "Apr 14, 2026", review: "As an interior designer I've recommended this to clients already. The precision is unreal — only the headlight rings glow, nothing else. So tasteful and premium.", avatar: "SM", verified: true },
+              { name: "Dev Sharma", city: "Pune", rating: 5, date: "Apr 8, 2026", review: "Incredible product. The acrylic backing is solid, the print quality is perfect. Honestly looks like a piece of art from a luxury store. 10/10 recommend.", avatar: "DS", verified: true },
+            ]).map((r, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                className="glass rounded-2xl p-6 flex flex-col gap-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold"
+                      style={{ background: 'rgba(255,0,61,0.15)', color: '#FF003D', border: '1px solid rgba(255,0,61,0.25)' }}>{r.avatar}</div>
+                    <div>
+                      <p className="text-sm font-bold">{r.name}</p>
+                      <p className="text-[10px] text-white/35 font-mono">{r.city}</p>
+                    </div>
+                  </div>
+                  {r.verified && <span className="text-[9px] text-green-400 font-mono bg-green-400/10 px-2 py-0.5 rounded-full">✓ Verified</span>}
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-0.5">{[...Array(r.rating)].map((_, j) => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}</div>
+                  <span className="text-[10px] text-white/30 font-mono">{r.date}</span>
+                </div>
+                <p className="text-sm text-white/65 leading-relaxed">"{r.review}"</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* ── Related Product */}

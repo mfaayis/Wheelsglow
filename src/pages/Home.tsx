@@ -243,7 +243,7 @@ export function Home() {
             <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="p-10 bg-black/40">
               <h4 className="text-xl font-display opacity-30 mb-6">Generic LED Poster</h4>
               <ul className="space-y-4">
-                {["Entire frame lights up uniformly", "Cheap LED strip, no precision cutouts", "Low-res 150gsm print", "No remote or color control", "Wired switch, no wireless"].map((item) => (
+                {["Entire frame lights up uniformly", "Cheap LED strip, no precision cutouts", "Low-res 150gsm print on cardboard", "Glued plastic frame, poor durability", "No hanging hardware included"].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-sm text-white/25">
                     <X className="w-4 h-4 text-white/20 flex-shrink-0" />{item}
                   </li>
