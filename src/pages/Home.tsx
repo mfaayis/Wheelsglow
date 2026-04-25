@@ -55,10 +55,12 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
 const TICKER_ITEMS = ["Premium LED Posters", "Porsche 911 GT3 RS", "BMW M4 Competition", "Acrylic Board", "Plug-in LED", "Museum Quality Print", "Free Pan-India Shipping", "Hand Assembled", "1 Year Warranty", "48-Hour Dispatch"];
 
 const TESTIMONIALS = [
-  { name: "Arjun Verma", role: "Porsche Collector · Mumbai", rating: 5, quote: "The way only the taillights glow is insane — not the whole frame, just the lights. Night time it looks like the real car is parked on my wall.", avatar: "AV", accent: "#FF2200" },
-  { name: "Sarah Mehta", role: "Interior Designer · Delhi", rating: 5, quote: "I've recommended this to 6 clients. The LED effect is so tasteful — precise, not gimmicky. Exactly what a premium product should feel like.", avatar: "SM", accent: "#00BFFF" },
-  { name: "Rahul Kumar", role: "BMW Enthusiast · Bengaluru", rating: 5, quote: "Those blue angel eyes glowing on my M4 poster at 2am is pure cinema. Best ₹1299 I've spent.", avatar: "RK", accent: "#00BFFF" },
-  { name: "Priya Nair", role: "Car Enthusiast · Chennai", rating: 5, quote: "Ordered the Porsche for my husband's birthday. He called it the best gift ever. The red taillight glow is unreal.", avatar: "PN", accent: "#FF2200" },
+  { name: "Arjun K.", role: "Porsche Collector · Mumbai", rating: 5, quote: "The way only the taillights glow is insane — not the whole frame, just the lights. Night time it looks like the real car is parked on my wall.", avatar: "AK", accent: "#FF2200", photo: "/review-gaming.png", room: "Gaming Room" },
+  { name: "Vikram S.", role: "Interior Designer · Delhi", rating: 5, quote: "I've recommended this to 6 clients. The LED effect is so tasteful — precise, not gimmicky. Exactly what a premium product should feel like.", avatar: "VS", accent: "#00BFFF", photo: "/review-office.png", room: "Home Office" },
+  { name: "Priya M.", role: "Car Enthusiast · Chennai", rating: 5, quote: "Ordered the Porsche for my husband's birthday. He called it the best gift ever. The red taillight glow at night is absolutely unreal.", avatar: "PM", accent: "#FF2200", photo: "/review-living.png", room: "Living Room" },
+  { name: "Rahul D.", role: "BMW Enthusiast · Bengaluru", rating: 5, quote: "Those blue angel eyes glowing on my M4 poster at 2am is pure cinema. Best ₹1299 I've ever spent on anything.", avatar: "RD", accent: "#00BFFF", photo: "/review-mancave.png", room: "Man Cave" },
+  { name: "Aditya R.", role: "Supercar Fan · Hyderabad", rating: 5, quote: "Hangs right above my bed. Every morning I wake up to the Porsche taillights glowing — it genuinely makes me feel like I own the car.", avatar: "AR", accent: "#CCFF00", photo: "/review-bedroom.png", room: "Bedroom" },
+  { name: "Karan P.", role: "Auto Enthusiast · Pune", rating: 5, quote: "Put it in my garage next to my car. Guests always stop and stare. The quality is insane for the price — feels like a gallery piece.", avatar: "KP", accent: "#FF6B00", photo: "/review-garage.png", room: "Car Garage" },
 ];
 
 export function Home() {
@@ -277,36 +279,83 @@ export function Home() {
       <section className="px-6 md:px-20 py-24 border-t border-white/5">
         <div className="mb-12">
           <SectionLabel label="Customer Stories" />
-          <SectionTitle lines={["The", "Enthusiasts"]} className="text-[11vw] md:text-[7vw] leading-[0.85] font-display" />
+          <SectionTitle lines={["Real Walls.", "Real Glow."]} className="text-[11vw] md:text-[7vw] leading-[0.85] font-display" />
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+            className="mt-4 text-white/40 text-sm max-w-lg">
+            Customer photos straight from their homes — gaming rooms, offices, bedrooms, garages.
+          </motion.p>
         </div>
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-5">
+
+        {/* Desktop — 3-col grid */}
+        <div className="hidden md:grid grid-cols-3 gap-5">
           {TESTIMONIALS.map((t, i) => (
-            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
-              className="glass p-7 rounded-2xl flex flex-col gap-5">
-              <div className="flex gap-1">{[...Array(t.rating)].map((_, j) => <Star key={j} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />)}</div>
-              <p className="text-sm text-white/65 leading-relaxed italic flex-1">"{t.quote}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold"
-                  style={{ background: `${t.accent}22`, color: t.accent, border: `1px solid ${t.accent}44` }}>{t.avatar}</div>
-                <div>
-                  <p className="text-sm font-bold">{t.name}</p>
-                  <p className="text-[9px] font-mono text-white/30 uppercase tracking-widest">{t.role}</p>
+            <motion.div key={i} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
+              className="glass rounded-2xl overflow-hidden flex flex-col group">
+              {/* Room photo */}
+              <div className="relative h-44 overflow-hidden">
+                <img
+                  src={t.photo}
+                  alt={`${t.name}'s ${t.room}`}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                {/* Room badge */}
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest"
+                  style={{ background: `${t.accent}33`, color: t.accent, border: `1px solid ${t.accent}55`, backdropFilter: 'blur(8px)' }}>
+                  {t.room}
+                </div>
+                {/* Stars overlay */}
+                <div className="absolute bottom-3 right-3 flex gap-0.5">
+                  {[...Array(t.rating)].map((_, j) => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
+                </div>
+              </div>
+              {/* Content */}
+              <div className="p-5 flex flex-col gap-4 flex-1">
+                <p className="text-sm text-white/70 leading-relaxed italic flex-1">"{t.quote}"</p>
+                <div className="flex items-center gap-3 pt-3 border-t border-white/5">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0"
+                    style={{ background: `${t.accent}22`, color: t.accent, border: `1px solid ${t.accent}44` }}>{t.avatar}</div>
+                  <div>
+                    <p className="text-sm font-bold leading-tight">{t.name}</p>
+                    <p className="text-[9px] font-mono text-white/30 uppercase tracking-widest mt-0.5">{t.role}</p>
+                  </div>
+                  <div className="ml-auto">
+                    <span className="text-[8px] font-mono text-white/20 uppercase tracking-widest">Verified ✓</span>
+                  </div>
                 </div>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Mobile carousel */}
         <div className="md:hidden">
           <AnimatePresence mode="wait">
-            <motion.div key={currentTestimonial} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="glass p-8 rounded-2xl">
-              <div className="flex gap-1 mb-4">{[...Array(TESTIMONIALS[currentTestimonial].rating)].map((_, j) => <Star key={j} className="w-4 h-4 fill-yellow-400 text-yellow-400" />)}</div>
-              <p className="text-base text-white/65 italic mb-6">"{TESTIMONIALS[currentTestimonial].quote}"</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold"
-                  style={{ background: `${TESTIMONIALS[currentTestimonial].accent}22`, color: TESTIMONIALS[currentTestimonial].accent }}>{TESTIMONIALS[currentTestimonial].avatar}</div>
-                <div>
-                  <p className="font-bold">{TESTIMONIALS[currentTestimonial].name}</p>
-                  <p className="text-[9px] font-mono text-white/30">{TESTIMONIALS[currentTestimonial].role}</p>
+            <motion.div key={currentTestimonial} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} className="glass rounded-2xl overflow-hidden">
+              {/* Room photo */}
+              <div className="relative h-52 overflow-hidden">
+                <img
+                  src={TESTIMONIALS[currentTestimonial].photo}
+                  alt={`${TESTIMONIALS[currentTestimonial].name}'s ${TESTIMONIALS[currentTestimonial].room}`}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest"
+                  style={{ background: `${TESTIMONIALS[currentTestimonial].accent}33`, color: TESTIMONIALS[currentTestimonial].accent, border: `1px solid ${TESTIMONIALS[currentTestimonial].accent}55`, backdropFilter: 'blur(8px)' }}>
+                  {TESTIMONIALS[currentTestimonial].room}
+                </div>
+                <div className="absolute bottom-3 right-3 flex gap-0.5">
+                  {[...Array(TESTIMONIALS[currentTestimonial].rating)].map((_, j) => <Star key={j} className="w-3.5 h-3.5 fill-yellow-400 text-yellow-400" />)}
+                </div>
+              </div>
+              <div className="p-6">
+                <p className="text-base text-white/65 italic mb-5">"{TESTIMONIALS[currentTestimonial].quote}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold"
+                    style={{ background: `${TESTIMONIALS[currentTestimonial].accent}22`, color: TESTIMONIALS[currentTestimonial].accent }}>{TESTIMONIALS[currentTestimonial].avatar}</div>
+                  <div>
+                    <p className="font-bold">{TESTIMONIALS[currentTestimonial].name}</p>
+                    <p className="text-[9px] font-mono text-white/30">{TESTIMONIALS[currentTestimonial].role}</p>
+                  </div>
+                  <span className="ml-auto text-[8px] font-mono text-white/20 uppercase tracking-widest">Verified ✓</span>
                 </div>
               </div>
             </motion.div>

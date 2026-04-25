@@ -52,6 +52,7 @@ export function ProductDetails() {
 
   const [selectedSize, setSelectedSize] = useState(product?.sizes?.[1] || "");
   const [added, setAdded] = useState(false);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   if (!product) {
     return (
@@ -332,37 +333,93 @@ export function ProductDetails() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {(product.id === 1 ? [
-              { name: "Arjun Verma", city: "Mumbai", rating: 5, date: "Apr 18, 2026", review: "Absolutely blown away. The red taillights glow exactly like the real car — not the whole frame, just the lights. It looks incredible in the dark. My garage has never looked this premium.", avatar: "AV", verified: true },
-              { name: "Priya Nair", city: "Chennai", rating: 5, date: "Apr 12, 2026", review: "Bought it for my husband who's obsessed with Porsche. He literally screamed when he saw it. The quality of the print is stunning and setup took about 5 minutes.", avatar: "PN", verified: true },
-              { name: "Karan Malhotra", city: "Delhi", rating: 5, date: "Apr 5, 2026", review: "Super premium product. The acrylic board feels solid and the LED glow is incredibly precise. Exactly what I expected — and the free shipping was fast too.", avatar: "KM", verified: true },
-            ] : [
-              { name: "Rahul Kumar", city: "Bengaluru", rating: 5, date: "Apr 20, 2026", review: "The BMW M4 angel eyes at midnight are absolutely cinematic. Just plug it in and it glows. Blue rings look exactly like the real headlights. Worth every rupee.", avatar: "RK", verified: true },
-              { name: "Sarah Mehta", city: "Delhi", rating: 5, date: "Apr 14, 2026", review: "As an interior designer I've recommended this to clients already. The precision is unreal — only the headlight rings glow, nothing else. So tasteful and premium.", avatar: "SM", verified: true },
-              { name: "Dev Sharma", city: "Pune", rating: 5, date: "Apr 8, 2026", review: "Incredible product. The acrylic backing is solid, the print quality is perfect. Honestly looks like a piece of art from a luxury store. 10/10 recommend.", avatar: "DS", verified: true },
-            ]).map((r, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-                className="glass rounded-2xl p-6 flex flex-col gap-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold"
-                      style={{ background: 'rgba(255,0,61,0.15)', color: '#FF003D', border: '1px solid rgba(255,0,61,0.25)' }}>{r.avatar}</div>
-                    <div>
-                      <p className="text-sm font-bold">{r.name}</p>
-                      <p className="text-[10px] text-white/35 font-mono">{r.city}</p>
+          {product.id === 1 ? (
+            /* ── Porsche: Photo review cards ── */
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[
+                { name: "Arjun K.", city: "Mumbai", role: "Gaming Room", rating: 5, date: "Apr 18, 2026", review: "The red taillights glow exactly like the real car — not the whole frame, just the lights. It looks incredible in the dark. My gaming setup has never looked this premium.", avatar: "AK", accent: "#FF2200", photo: "/review-gaming.png" },
+                { name: "Vikram S.", city: "Delhi", role: "Home Office", rating: 5, date: "Apr 15, 2026", review: "I've recommended this to 6 clients. The LED effect is so tasteful — precise, not gimmicky. Exactly what a premium product should feel like.", avatar: "VS", accent: "#00BFFF", photo: "/review-office.png" },
+                { name: "Priya M.", city: "Chennai", role: "Living Room", rating: 5, date: "Apr 12, 2026", review: "Ordered for my husband's birthday. He called it the best gift ever. The red taillight glow at night is absolutely unreal — everyone who visits asks about it.", avatar: "PM", accent: "#FF2200", photo: "/review-living.png" },
+                { name: "Rahul D.", city: "Bengaluru", role: "Man Cave", rating: 5, date: "Apr 10, 2026", review: "The Porsche taillights glowing at 2am in my man cave is pure cinema. Guests always stop and stare. Best ₹1299 I've ever spent.", avatar: "RD", accent: "#FF6B00", photo: "/review-mancave.png" },
+                { name: "Aditya R.", city: "Hyderabad", role: "Bedroom", rating: 5, date: "Apr 7, 2026", review: "Hangs right above my bed. Every morning I wake up to the Porsche taillights glowing — it genuinely makes me feel like I own the car.", avatar: "AR", accent: "#CCFF00", photo: "/review-bedroom.png" },
+                { name: "Karan P.", city: "Pune", role: "Car Garage", rating: 5, date: "Apr 4, 2026", review: "Put it in my garage next to my actual car. The quality is insane for the price — feels like a gallery piece from a luxury showroom.", avatar: "KP", accent: "#FF2200", photo: "/review-garage.png" },
+              ].filter((_, i) => showAllReviews || i < 3).map((r, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}
+                  className="glass rounded-2xl overflow-hidden flex flex-col group">
+                  {/* Room Photo */}
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={r.photo}
+                      alt={`${r.name}'s ${r.role}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                    {/* Room badge */}
+                    <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest"
+                      style={{ background: `${r.accent}33`, color: r.accent, border: `1px solid ${r.accent}55`, backdropFilter: 'blur(8px)' }}>
+                      {r.role}
+                    </div>
+                    {/* Stars */}
+                    <div className="absolute bottom-3 right-3 flex gap-0.5">
+                      {[...Array(r.rating)].map((_, j) => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}
                     </div>
                   </div>
-                  {r.verified && <span className="text-[9px] text-green-400 font-mono bg-green-400/10 px-2 py-0.5 rounded-full">✓ Verified</span>}
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="flex gap-0.5">{[...Array(r.rating)].map((_, j) => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}</div>
-                  <span className="text-[10px] text-white/30 font-mono">{r.date}</span>
-                </div>
-                <p className="text-sm text-white/65 leading-relaxed">"{r.review}"</p>
-              </motion.div>
-            ))}
-          </div>
+                  {/* Content */}
+                  <div className="p-5 flex flex-col gap-3 flex-1">
+                    <p className="text-sm text-white/70 leading-relaxed italic flex-1">"{r.review}"</p>
+                    <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0"
+                          style={{ background: `${r.accent}22`, color: r.accent, border: `1px solid ${r.accent}44` }}>{r.avatar}</div>
+                        <div>
+                          <p className="text-sm font-bold leading-tight">{r.name}</p>
+                          <p className="text-[9px] font-mono text-white/30 mt-0.5">{r.city} · {r.date}</p>
+                        </div>
+                      </div>
+                      <span className="text-[8px] font-mono text-green-400/70 bg-green-400/10 px-2 py-0.5 rounded-full">✓ Verified</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+            {/* Show more / less button */}
+            <motion.button
+              onClick={() => setShowAllReviews(v => !v)}
+              whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
+              className="mt-6 w-full py-3.5 rounded-xl border border-white/10 text-white/50 hover:border-neon-accent hover:text-neon-accent text-sm font-mono uppercase tracking-widest transition-all"
+            >
+              {showAllReviews ? '↑ Show less' : 'Show all 6 reviews ↓'}
+            </motion.button>
+          ) : (
+            /* ── BMW: Text-only review cards ── */
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { name: "Rahul Kumar", city: "Bengaluru", rating: 5, date: "Apr 20, 2026", review: "The BMW M4 angel eyes at midnight are absolutely cinematic. Just plug it in and it glows. Blue rings look exactly like the real headlights. Worth every rupee.", avatar: "RK", verified: true },
+                { name: "Sarah Mehta", city: "Delhi", rating: 5, date: "Apr 14, 2026", review: "As an interior designer I've recommended this to clients already. The precision is unreal — only the headlight rings glow, nothing else. So tasteful and premium.", avatar: "SM", verified: true },
+                { name: "Dev Sharma", city: "Pune", rating: 5, date: "Apr 8, 2026", review: "Incredible product. The acrylic backing is solid, the print quality is perfect. Honestly looks like a piece of art from a luxury store. 10/10 recommend.", avatar: "DS", verified: true },
+              ].map((r, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+                  className="glass rounded-2xl p-6 flex flex-col gap-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold"
+                        style={{ background: 'rgba(0,191,255,0.15)', color: '#00BFFF', border: '1px solid rgba(0,191,255,0.25)' }}>{r.avatar}</div>
+                      <div>
+                        <p className="text-sm font-bold">{r.name}</p>
+                        <p className="text-[10px] text-white/35 font-mono">{r.city}</p>
+                      </div>
+                    </div>
+                    {r.verified && <span className="text-[9px] text-green-400 font-mono bg-green-400/10 px-2 py-0.5 rounded-full">✓ Verified</span>}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex gap-0.5">{[...Array(r.rating)].map((_, j) => <Star key={j} className="w-3 h-3 fill-yellow-400 text-yellow-400" />)}</div>
+                    <span className="text-[10px] text-white/30 font-mono">{r.date}</span>
+                  </div>
+                  <p className="text-sm text-white/65 leading-relaxed">"{r.review}"</p>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* ── Related Product */}
