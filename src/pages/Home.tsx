@@ -52,7 +52,7 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   );
 }
 
-const TICKER_ITEMS = ["Premium LED Posters", "Porsche 911 GT3 RS", "BMW M4 Competition", "Remote Controlled", "16 LED Colors", "300 GSM Museum Print", "Free Pan-India Shipping", "Hand Assembled", "1 Year Warranty", "48-Hour Dispatch"];
+const TICKER_ITEMS = ["Premium LED Posters", "Porsche 911 GT3 RS", "BMW M4 Competition", "Acrylic Board", "Plug-in LED", "Museum Quality Print", "Free Pan-India Shipping", "Hand Assembled", "1 Year Warranty", "48-Hour Dispatch"];
 
 const TESTIMONIALS = [
   { name: "Arjun Verma", role: "Porsche Collector · Mumbai", rating: 5, quote: "The way only the taillights glow is insane — not the whole frame, just the lights. Night time it looks like the real car is parked on my wall.", avatar: "AV", accent: "#FF2200" },
@@ -258,10 +258,10 @@ export function Home() {
               <ul className="space-y-4">
                 {[
                   { text: "Only the car's lights glow — precision cutouts", color: "#FF2200" },
-                  { text: "High-quality SMD 5050 LEDs, sealed edge", color: "#FF6B00" },
-                  { text: "300 GSM museum-grade UV print", color: "#00BFFF" },
-                  { text: "24-key wireless remote, 16 colors, 4 modes", color: "#CCFF00" },
-                  { text: "Transparent 12V cable, plug & play", color: "#FF2200" },
+                  { text: "Premium acrylic board — durable & lightweight", color: "#FF6B00" },
+                  { text: "High-resolution UV-resistant art print", color: "#00BFFF" },
+                  { text: "Simple plug-in power — instant on, no setup", color: "#CCFF00" },
+                  { text: "Pre-installed hooks — hangs in under 10 min", color: "#FF2200" },
                 ].map((item) => (
                   <li key={item.text} className="flex items-center gap-3 text-sm text-white">
                     <Check className="w-4 h-4 flex-shrink-0" style={{ color: item.color }} />{item.text}
@@ -330,7 +330,7 @@ export function Home() {
             { q: "Does the whole poster light up or just the car lights?", a: "Only the car's actual lights illuminate — for the Porsche, it's the rear taillights and brake light bar. For the BMW, it's the LED angel eye headlight rings. The rest of the poster stays dark, exactly like the real car at night." },
             { q: "What sizes do you offer?", a: "All products come in 3 sizes: A3 (30×42cm) at ₹999, A2 (42×59cm) at ₹1,299, and A1 (59×84cm) at ₹1,699." },
             { q: "How is it powered and installed?", a: "A 12V DC adapter plugs into any standard wall socket. The 3-meter transparent cable runs discreetly to the poster. The mounting kit includes brackets and a spirit level guide — setup takes under 10 minutes." },
-            { q: "Can I change the LED color with the remote?", a: "Yes. The included 24-key RF wireless remote lets you choose from 16 static colors and 4 dynamic modes (fade, strobe, pulse, smooth). Range is approximately 10 meters." },
+            { q: "How do I turn the LED on/off?", a: "Simply plug the included power adapter into any standard wall socket. The LED turns on instantly. Unplug to switch it off. No remote or app required — it's always the same signature colour that matches the car's real lights." },
             { q: "How long does delivery take?", a: "All orders are dispatched within 48 hours. Pan-India delivery typically takes 3–7 business days via tracked courier. You'll receive a tracking link after dispatch." },
             { q: "Can I track my order?", a: "Yes — use the Track Order page and enter your order ID (sent via WhatsApp after dispatch) to see live delivery status." },
           ].map((faq, i) => <FaqItem key={i} q={faq.q} a={faq.a} index={i} />)}

@@ -48,7 +48,7 @@ export function Collection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { icon: "🖼️", label: "LED Poster", desc: "300 GSM matte print with pre-mounted LED strip" },
-            { icon: "📡", label: "RF Remote", desc: "24-key wireless remote, 16 colors, 4 modes" },
+            { icon: "🔌", label: "Plug-in LED", desc: "Simple power adapter — instant on, no remote needed" },
             { icon: "🔌", label: "12V Adapter", desc: "3m transparent cable + 12V 2A DC adapter" },
             { icon: "🔧", label: "Mount Kit", desc: "Wall brackets + spirit level + screws" },
           ].map((item) => (

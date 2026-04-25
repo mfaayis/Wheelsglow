@@ -254,18 +254,18 @@ export function ProductDetails() {
               }} initialOpen={true} />
               <Accordion title="Features & Specs" data={{
                 "Frame Type": "Unframed / Floating look",
-                "Special Features": "LED Light, Weatherproof, Remote Controlled",
+                "Special Features": "LED Light, Plug-in Power, Weatherproof",
                 "Mounting Type": "Wall Mount",
-                "Is Framed": "Rigid Aluminum Composite Backing"
+                "Is Framed": "Acrylic Board Backing"
               }} initialOpen={true} />
               <Accordion title="User guide" data={{
                 "Recommended Uses": "Car Enthusiast Decor, Ambient Lighting, Wall Art"
               }} initialOpen={false} />
               <Accordion title="Materials & Care" data={{
-                "Material Type": "Aluminum Composite & PVC",
-                "Frame Material": "High-density foam and aluminum",
+                "Material Type": "Acrylic Board & PVC",
+                "Frame Material": "Premium acrylic board backing",
                 "Finish Type": "Matte UV Resistant",
-                "Paint Type": "Digital 12-Color Print",
+                "Paint Type": "High-resolution Digital Print",
                 "Cover Material": "Scratch-resistant Coating"
               }} initialOpen={false} />
             </div>
