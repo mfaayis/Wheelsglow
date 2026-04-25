@@ -70,7 +70,7 @@ export function Home() {
         title="WheelsGlow | Luxury LED Car Art Posters — Buy Online India"
         description="Premium LED wall art posters. Only the car's headlights & taillights glow — cinematic, true-to-life. Porsche 911 GT3 RS, BMW M4. Free pan-India shipping. Starting ₹999."
         keywords="LED car poster India, luxury LED wall art India, WheelsGlow, buy LED poster online, Porsche LED poster, BMW M4 LED poster, glowing car wall art, car poster with LED lights"
-        canonical="https://wheelsglow.store/"
+        canonical="https://www.wheelsglow.store/"
       />
       {/* ── HERO */}
       <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 overflow-hidden">

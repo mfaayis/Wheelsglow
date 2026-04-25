@@ -1,46 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <!-- Core Static Pages -->
+
+  <!-- ── Core Pages ── -->
   <url>
-    <loc>https://wheelsglow.store/</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://www.wheelsglow.store/</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://wheelsglow.store/collection</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://www.wheelsglow.store/collection</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://wheelsglow.store/about</loc>
-    <lastmod>2026-04-01</lastmod>
+    <loc>https://www.wheelsglow.store/about</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.wheelsglow.store/custom</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://wheelsglow.store/faq</loc>
-    <lastmod>2026-04-01</lastmod>
-    <priority>0.8</priority>
-  </url>
-  
-  <!-- Example Products (You will want to automate this in production) -->
-  <url>
-    <loc>https://wheelsglow.store/product/porsche-911-gt3-rs</loc>
-    <lastmod>2026-04-01</lastmod>
-    <priority>0.8</priority>
+    <loc>https://www.wheelsglow.store/faq</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://wheelsglow.store/product/nissan-skyline-gtr-r34</loc>
-    <lastmod>2026-04-01</lastmod>
-    <priority>0.8</priority>
+    <loc>https://www.wheelsglow.store/contact</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wheelsglow.store/product/bmw-m4-competition</loc>
-    <lastmod>2026-04-01</lastmod>
-    <priority>0.8</priority>
+    <loc>https://www.wheelsglow.store/track</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://wheelsglow.store/product/ferrari-f40-competizione</loc>
-    <lastmod>2026-04-01</lastmod>
-    <priority>0.8</priority>
+    <loc>https://www.wheelsglow.store/shipping</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://www.wheelsglow.store/returns</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.wheelsglow.store/privacy</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.wheelsglow.store/terms</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- ── Products (actual router paths) ── -->
+  <url>
+    <loc>https://www.wheelsglow.store/product/1</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://www.wheelsglow.store/product/2</loc>
+    <lastmod>2026-04-25</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
 </urlset>
+

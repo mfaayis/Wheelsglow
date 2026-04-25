@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -220,3 +219,69 @@
 /* ─── LED Demo Overlay ─── */
 .led-off { filter: brightness(0.35) grayscale(0.6); }
 .led-on  { filter: brightness(1.05) saturate(1.2); }
+
+/* ─── Particle Float Animation (CSS — no framer-motion) ─── */
+@keyframes particle-float {
+  0%   { transform: translateY(0);    opacity: 0; }
+  10%  { opacity: 0.25; }
+  90%  { opacity: 0.15; }
+  100% { transform: translateY(-25vh); opacity: 0; }
+}
+.particle-float {
+  animation: particle-float linear infinite;
+  will-change: transform, opacity;
+}
+
+/* ─── Mobile Performance ─── */
+@media (max-width: 768px) {
+  /* Kill expensive blob animations on mobile */
+  .no-mobile-anim {
+    animation: none !important;
+  }
+
+  /* Reduce backdrop blur from 40px → 8px — huge GPU win on phones */
+  .glass {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+  .glass-strong {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+
+  /* Simplify nav blur on mobile */
+  .backdrop-blur-2xl {
+    --tw-backdrop-blur: blur(10px) !important;
+  }
+
+  /* Reduce neon glow complexity — less box-shadow layers */
+  .neon-glow-red {
+    box-shadow: 0 0 15px rgba(255, 0, 61, 0.3) !important;
+  }
+  .neon-glow-orange, .neon-glow-blue, .neon-glow-gold {
+    box-shadow: none !important;
+  }
+
+  /* Faster marquee on mobile (fewer items visible) */
+  .animate-marquee { animation-duration: 20s; }
+  .animate-marquee-reverse { animation-duration: 18s; }
+}
+
+/* ─── Respect user's motion preference ─── */
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-neon-pulse,
+  .animate-led-flicker,
+  .animate-glow-ring,
+  .animate-float,
+  .animate-spin-slow,
+  .animate-shimmer,
+  .animate-marquee,
+  .animate-marquee-reverse,
+  .particle-float,
+  .no-mobile-anim {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+

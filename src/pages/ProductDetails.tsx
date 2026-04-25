@@ -80,13 +80,13 @@ export function ProductDetails() {
         title={`${product.name} LED Art Poster | WheelsGlow — Buy Online India`}
         description={`Buy the ${product.name} luxury LED art poster. ${product.description} Only the car's lights glow — cinematic wall art. Free pan-India shipping. Starting ₹999.`}
         keywords={`${product.name} LED poster, ${product.name} wall art, buy ${product.name} poster India, WheelsGlow LED art`}
-        image={`https://wheelsglow.store${product.imageOn || product.image}`}
-        canonical={`https://wheelsglow.store/product/${product.id}`}
+        image={`https://www.wheelsglow.store${product.imageOn || product.image}`}
+        canonical={`https://www.wheelsglow.store/product/${product.id}`}
         type="product"
         product={{
           name: product.name,
           description: product.description || '',
-          image: `https://wheelsglow.store${product.imageOn || product.image}`,
+          image: `https://www.wheelsglow.store${product.imageOn || product.image}`,
           price: product.price,
           currency: 'INR',
           availability: 'InStock',
