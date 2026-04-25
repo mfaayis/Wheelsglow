@@ -335,6 +335,7 @@ export function ProductDetails() {
 
           {product.id === 1 ? (
             /* ── Porsche: Photo review cards ── */
+            <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { name: "Arjun K.", city: "Mumbai", role: "Gaming Room", rating: 5, date: "Apr 18, 2026", review: "The red taillights glow exactly like the real car — not the whole frame, just the lights. It looks incredible in the dark. My gaming setup has never looked this premium.", avatar: "AK", accent: "#FF2200", photo: "/review-gaming.jpg" },
@@ -390,6 +391,7 @@ export function ProductDetails() {
             >
               {showAllReviews ? '↑ Show less' : 'Show all 6 reviews ↓'}
             </motion.button>
+            </>
           ) : (
             /* ── BMW: Text-only review cards ── */
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
