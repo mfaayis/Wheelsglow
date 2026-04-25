@@ -54,6 +54,7 @@ export const ProductCard: React.FC<{ product: Product }> = ({ product }) => {
           imageBefore={product.image}
           imageAfter={product.imageOn || product.image}
           ledColor={product.color}
+          aspectRatio={product.id === 2 ? "2/3" : "4/3"}
           initialPosition={52}
         />
 
