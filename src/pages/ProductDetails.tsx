@@ -112,7 +112,7 @@ export function ProductDetails() {
               imageBefore={product.image}
               imageAfter={product.imageOn || product.image}
               ledColor={product.color}
-              aspectRatio="4/3"
+              aspectRatio={product.id === 2 ? "2/3" : "4/3"}
               initialPosition={48}
               className="rounded-2xl overflow-hidden"
             />
@@ -388,6 +388,97 @@ export function ProductDetails() {
                       { key: "Downforce",      val: "409 kg at top speed" },
                       { key: "Brakes",         val: "Carbon-Ceramic PCCB" },
                       { key: "Manthey Kit",    val: "Suspension, aero, tyres" },
+                    ].map(({ key, val }) => (
+                      <div key={key} className="flex items-center px-6 py-3 hover:bg-white/3 transition-colors">
+                        <span className="w-1/2 text-[10px] font-mono uppercase tracking-widest text-white/35">{key}</span>
+                        <span className="w-1/2 text-sm text-white/85 font-medium">{val}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {/* ── About The Car (Lamborghini only) ── */}
+        {product.id === 2 && (
+          <div className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+
+              {/* Header */}
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                  <p className="text-neon-accent font-mono text-[10px] uppercase tracking-[0.6em] mb-3 flex items-center gap-3">
+                    <span className="w-6 h-px bg-neon-accent inline-block" /> The Machine
+                  </p>
+                  <h2 className="text-3xl md:text-4xl font-display leading-tight">Lamborghini Revuelto<br /><span className="text-neon-accent">Arancio Borealis</span></h2>
+                  <p className="text-white/40 text-sm mt-2 font-mono">The first High Performance Electrified Vehicle (HPEV) hybrid super sports car.</p>
+                </div>
+                {/* Lamborghini badge */}
+                <div className="flex items-center gap-3 glass px-5 py-3 rounded-2xl border border-white/10 w-fit">
+                  <div className="w-2 h-2 rounded-full bg-neon-accent animate-pulse" />
+                  <div>
+                    <p className="text-xs font-bold tracking-wide">LAMBORGHINI</p>
+                    <p className="text-[9px] font-mono text-white/30 uppercase tracking-widest">Sant'Agata Bolognese</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero stats bar */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden mb-8">
+                {[
+                  { label: "Engine", value: "6.5L V12", sub: "Naturally Aspirated + 3 Electric Motors" },
+                  { label: "Power", value: "1,015 CV", sub: "Combined Max Power" },
+                  { label: "0–100 km/h", value: "2.5 s", sub: "Launch Control" },
+                  { label: "Top Speed", value: "> 350 km/h", sub: "Electronically limited" },
+                ].map((s, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
+                    className="bg-black/40 p-6 text-center group hover:bg-white/5 transition-colors">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.4em] text-white/30 mb-2">{s.label}</p>
+                    <p className="text-2xl md:text-3xl font-display text-white group-hover:text-neon-accent transition-colors">{s.value}</p>
+                    <p className="text-[9px] font-mono text-white/25 mt-1">{s.sub}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Two column: description + specs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Left: Description */}
+                <div className="glass rounded-2xl p-7 flex flex-col gap-5">
+                  <h3 className="text-lg font-display">The Car Behind The Poster</h3>
+                  <p className="text-sm text-white/55 leading-relaxed">
+                    The <span className="text-white font-semibold">Lamborghini Revuelto</span> is the successor to the legendary Aventador and the first V12 hybrid plug-in HPEV (High Performance Electrified Vehicle). It combines a naturally aspirated 6.5-liter V12 engine with three electric motors.
+                  </p>
+                  <p className="text-sm text-white/55 leading-relaxed">
+                    The signature <span className="text-neon-accent font-semibold">Y-shaped daytime running lights</span> frame the aggressive front fascia, creating an unmistakable, predatory glare. This poster captures that exact luminous intensity, bringing the cutting-edge design language of Sant'Agata Bolognese to your wall.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                    {["V12 Hybrid", "E-4WD", "Carbon Fiber Monofuselage", "Aerospace Design"].map(tag => (
+                      <span key={tag} className="text-[9px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/10 text-white/40">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: Full spec table */}
+                <div className="glass rounded-2xl overflow-hidden">
+                  <div className="px-6 py-4 border-b border-white/5 bg-white/5">
+                    <h3 className="text-sm font-bold uppercase tracking-widest">Full Specifications</h3>
+                  </div>
+                  <div className="divide-y divide-white/5">
+                    {[
+                      { key: "Engine",         val: "6.5L V12 + 3 Electric Motors" },
+                      { key: "Total Power",    val: "1,015 CV (746 kW)" },
+                      { key: "Max Torque",     val: "725 Nm (ICE) + 350 Nm (Front e-motors)" },
+                      { key: "Transmission",   val: "8-Speed e-DCT" },
+                      { key: "Drive",          val: "E-4WD" },
+                      { key: "0–100 km/h",     val: "2.5 seconds" },
+                      { key: "0–200 km/h",     val: "< 7.0 seconds" },
+                      { key: "Top Speed",      val: "> 350 km/h" },
+                      { key: "Dry Weight",     val: "1,772 kg" },
+                      { key: "Weight/Power",   val: "1.75 kg/CV" },
+                      { key: "Chassis",        val: "Monofuselage in carbon fiber" },
+                      { key: "Battery",        val: "3.8 kWh Lithium-ion" },
                     ].map(({ key, val }) => (
                       <div key={key} className="flex items-center px-6 py-3 hover:bg-white/3 transition-colors">
                         <span className="w-1/2 text-[10px] font-mono uppercase tracking-widest text-white/35">{key}</span>
