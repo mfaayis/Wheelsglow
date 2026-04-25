@@ -310,6 +310,96 @@ export function ProductDetails() {
           </motion.div>
         </div>
 
+        {/* ── About The Car (Porsche only) ── */}
+        {product.id === 1 && (
+          <div className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+
+              {/* Header */}
+              <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                <div>
+                  <p className="text-neon-accent font-mono text-[10px] uppercase tracking-[0.6em] mb-3 flex items-center gap-3">
+                    <span className="w-6 h-px bg-neon-accent inline-block" /> The Machine
+                  </p>
+                  <h2 className="text-3xl md:text-4xl font-display leading-tight">Porsche 911 GT2 RS<br /><span className="text-neon-accent">Manthey Racing MR</span></h2>
+                  <p className="text-white/40 text-sm mt-2 font-mono">The most extreme 911 ever built. Street-legal. Track-ready.</p>
+                </div>
+                {/* Manthey badge */}
+                <div className="flex items-center gap-3 glass px-5 py-3 rounded-2xl border border-white/10 w-fit">
+                  <div className="w-2 h-2 rounded-full bg-neon-accent animate-pulse" />
+                  <div>
+                    <p className="text-xs font-bold tracking-wide">MANTHEY RACING</p>
+                    <p className="text-[9px] font-mono text-white/30 uppercase tracking-widest">Nürburgring Record Holder</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Hero stats bar */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden mb-8">
+                {[
+                  { label: "Engine", value: "3.8L Biturbo", sub: "Flat-Six Boxer" },
+                  { label: "Power", value: "700 HP", sub: "at 7,000 rpm" },
+                  { label: "0–100 km/h", value: "2.7 s", sub: "Launch Control" },
+                  { label: "Top Speed", value: "340 km/h", sub: "Electronically limited" },
+                ].map((s, i) => (
+                  <motion.div key={i} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
+                    className="bg-black/40 p-6 text-center group hover:bg-white/5 transition-colors">
+                    <p className="text-[9px] font-mono uppercase tracking-[0.4em] text-white/30 mb-2">{s.label}</p>
+                    <p className="text-2xl md:text-3xl font-display text-white group-hover:text-neon-accent transition-colors">{s.value}</p>
+                    <p className="text-[9px] font-mono text-white/25 mt-1">{s.sub}</p>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Two column: description + specs */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Left: Description */}
+                <div className="glass rounded-2xl p-7 flex flex-col gap-5">
+                  <h3 className="text-lg font-display">The Car Behind The Poster</h3>
+                  <p className="text-sm text-white/55 leading-relaxed">
+                    The <span className="text-white font-semibold">Porsche 911 GT2 RS MR</span> by Manthey Racing is the ultimate expression of the 991-generation 911. Built for the Nürburgring Nordschleife, every component has been tuned to shave seconds off the lap time — from the forged magnesium wheels to the carbon-ceramic brakes.
+                  </p>
+                  <p className="text-sm text-white/55 leading-relaxed">
+                    The signature <span className="text-neon-accent font-semibold">Racing Red taillight bar</span> stretches the full width of the rear, illuminating the cockpit of the diffuser with unmistakable heat. It's the detail that makes the car instantly recognisable — even at 300+ km/h.
+                  </p>
+                  <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-white/5">
+                    {["Rear-Engine RWD", "PDK 7-Speed", "Carbon Fibre Body", "Street Legal"].map(tag => (
+                      <span key={tag} className="text-[9px] font-mono uppercase tracking-widest px-2.5 py-1 rounded-full border border-white/10 text-white/40">{tag}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: Full spec table */}
+                <div className="glass rounded-2xl overflow-hidden">
+                  <div className="px-6 py-4 border-b border-white/5 bg-white/5">
+                    <h3 className="text-sm font-bold uppercase tracking-widest">Full Specifications</h3>
+                  </div>
+                  <div className="divide-y divide-white/5">
+                    {[
+                      { key: "Engine",         val: "3.8L Twin-Turbo Flat-Six" },
+                      { key: "Max Power",      val: "700 HP (515 kW)" },
+                      { key: "Max Torque",     val: "750 Nm" },
+                      { key: "Transmission",   val: "7-Speed PDK" },
+                      { key: "Drive",          val: "Rear-Wheel Drive" },
+                      { key: "0–100 km/h",     val: "2.7 seconds" },
+                      { key: "0–200 km/h",     val: "8.3 seconds" },
+                      { key: "Top Speed",      val: "340 km/h" },
+                      { key: "Kerb Weight",    val: "1,470 kg" },
+                      { key: "Downforce",      val: "409 kg at top speed" },
+                      { key: "Brakes",         val: "Carbon-Ceramic PCCB" },
+                      { key: "Manthey Kit",    val: "Suspension, aero, tyres" },
+                    ].map(({ key, val }) => (
+                      <div key={key} className="flex items-center px-6 py-3 hover:bg-white/3 transition-colors">
+                        <span className="w-1/2 text-[10px] font-mono uppercase tracking-widest text-white/35">{key}</span>
+                        <span className="w-1/2 text-sm text-white/85 font-medium">{val}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
 
         {/* ── Customer Reviews ── */}
         <div className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10">
