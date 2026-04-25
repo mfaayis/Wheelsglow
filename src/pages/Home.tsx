@@ -52,13 +52,13 @@ function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
   );
 }
 
-const TICKER_ITEMS = ["Premium LED Posters", "Porsche 911 GT3 RS", "BMW M4 Competition", "Acrylic Board", "Plug-in LED", "Museum Quality Print", "Free Pan-India Shipping", "Hand Assembled", "1 Year Warranty", "48-Hour Dispatch"];
+const TICKER_ITEMS = ["Premium LED Posters", "Porsche 911 GT3 RS", "Lamborghini Revuelto", "Acrylic Board", "Plug-in LED", "Museum Quality Print", "Free Pan-India Shipping", "Hand Assembled", "1 Year Warranty", "48-Hour Dispatch"];
 
 const TESTIMONIALS = [
   { name: "Arjun K.", role: "Porsche Collector · Mumbai", rating: 5, quote: "The way only the taillights glow is insane — not the whole frame, just the lights. Night time it looks like the real car is parked on my wall.", avatar: "AK", accent: "#FF2200", photo: "/review-gaming.jpg", room: "Gaming Room" },
   { name: "Vikram S.", role: "Interior Designer · Delhi", rating: 5, quote: "I've recommended this to 6 clients. The LED effect is so tasteful — precise, not gimmicky. Exactly what a premium product should feel like.", avatar: "VS", accent: "#00BFFF", photo: "/review-office.jpg", room: "Home Office" },
   { name: "Priya M.", role: "Car Enthusiast · Chennai", rating: 5, quote: "Ordered the Porsche for my husband's birthday. He called it the best gift ever. The red taillight glow at night is absolutely unreal.", avatar: "PM", accent: "#FF2200", photo: "/review-living.jpg", room: "Living Room" },
-  { name: "Rahul D.", role: "BMW Enthusiast · Bengaluru", rating: 5, quote: "Those blue angel eyes glowing on my M4 poster at 2am is pure cinema. Best ₹1299 I've ever spent on anything.", avatar: "RD", accent: "#00BFFF", photo: "/review-mancave.jpg", room: "Man Cave" },
+  { name: "Rahul D.", role: "Supercar Fan · Bengaluru", rating: 5, quote: "The Lamborghini Revuelto headlights glowing at 2am is pure cinema. Those Y-shaped blades light up like the actual car. Best ₹1299 ever.", avatar: "RD", accent: "#FF6B00", photo: "/review-mancave.jpg", room: "Man Cave" },
   { name: "Aditya R.", role: "Supercar Fan · Hyderabad", rating: 5, quote: "Hangs right above my bed. Every morning I wake up to the Porsche taillights glowing — it genuinely makes me feel like I own the car.", avatar: "AR", accent: "#CCFF00", photo: "/review-bedroom.jpg", room: "Bedroom" },
   { name: "Karan P.", role: "Auto Enthusiast · Pune", rating: 5, quote: "Put it in my garage next to my car. Guests always stop and stare. The quality is insane for the price — feels like a gallery piece.", avatar: "KP", accent: "#FF6B00", photo: "/review-garage.jpg", room: "Car Garage" },
 ];
@@ -210,7 +210,7 @@ export function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               { car: "Porsche 911 GT3 RS", color: "#FF2200", items: ["Rear taillights — warm red glow", "Brake light horizontal bar — amber orange", "Wheel arch area — subtle warm halo", "Rest of poster — stays dark as printed"] },
-              { car: "BMW M4 Competition", color: "#00BFFF", items: ["Angel eye headlight rings — vivid electric blue", "Inner LED daytime running lights — cool white", "Headlight housing halo — blue glow", "Rest of poster — stays dark as printed"] },
+              { car: "Lamborghini Revuelto", color: "#FF6B00", items: ["Y-shaped headlight blades — crisp white glow", "Inner daytime running strip — warm white", "Headlight surround halo — orange-white edge", "Rest of poster — stays dark as printed"] },
             ].map((card) => (
               <motion.div key={card.car} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass rounded-2xl overflow-hidden">
                 <div className="p-6 border-b border-white/5">

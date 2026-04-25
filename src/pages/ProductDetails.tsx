@@ -483,19 +483,19 @@ export function ProductDetails() {
             </motion.button>
             </>
           ) : (
-            /* ── BMW: Text-only review cards ── */
+            /* ── Lamborghini Revuelto: Text-only review cards ── */
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { name: "Rahul Kumar", city: "Bengaluru", rating: 5, date: "Apr 20, 2026", review: "The BMW M4 angel eyes at midnight are absolutely cinematic. Just plug it in and it glows. Blue rings look exactly like the real headlights. Worth every rupee.", avatar: "RK", verified: true },
-                { name: "Sarah Mehta", city: "Delhi", rating: 5, date: "Apr 14, 2026", review: "As an interior designer I've recommended this to clients already. The precision is unreal — only the headlight rings glow, nothing else. So tasteful and premium.", avatar: "SM", verified: true },
-                { name: "Dev Sharma", city: "Pune", rating: 5, date: "Apr 8, 2026", review: "Incredible product. The acrylic backing is solid, the print quality is perfect. Honestly looks like a piece of art from a luxury store. 10/10 recommend.", avatar: "DS", verified: true },
+                { name: "Rahul K.", city: "Bengaluru", rating: 5, date: "Apr 20, 2026", review: "The Y-shaped headlights glowing at midnight is absolutely cinematic. Just plug it in. It looks exactly like the real Revuelto parked on your wall. Worth every rupee.", avatar: "RK", verified: true },
+                { name: "Sarah M.", city: "Delhi", rating: 5, date: "Apr 14, 2026", review: "As an interior designer I've recommended this to clients already. The orange Lamborghini on a dark wall with those white blade headlights glowing — it's pure art.", avatar: "SM", verified: true },
+                { name: "Dev S.", city: "Pune", rating: 5, date: "Apr 8, 2026", review: "Incredible product. The acrylic backing is solid, print quality is perfect. The Revuelto headlights light up exactly like the real car. Honestly looks like a piece from a luxury gallery.", avatar: "DS", verified: true },
               ].map((r, i) => (
                 <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                   className="glass rounded-2xl p-6 flex flex-col gap-4">
                   <div className="flex items-start justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold"
-                        style={{ background: 'rgba(0,191,255,0.15)', color: '#00BFFF', border: '1px solid rgba(0,191,255,0.25)' }}>{r.avatar}</div>
+                        style={{ background: 'rgba(255,107,0,0.15)', color: '#FF6B00', border: '1px solid rgba(255,107,0,0.25)' }}>{r.avatar}</div>
                       <div>
                         <p className="text-sm font-bold">{r.name}</p>
                         <p className="text-[10px] text-white/35 font-mono">{r.city}</p>
