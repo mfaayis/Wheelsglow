@@ -7,8 +7,8 @@ export const PRODUCTS: Product[] = [
     price: 1299,
     originalPrice: 1799,
     // Real product photos — before (LED off) and after (LED on)
-    image: "/porsche-off.png",
-    imageOn: "/porsche-on.png",
+    image: "/porsche-off-v2.jpg",
+    imageOn: "/porsche-on-v2.jpg",
     color: "#FF2200",
     description: "Racing Red Taillight Edition",
     category: "cars",
