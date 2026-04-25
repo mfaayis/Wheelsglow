@@ -3,17 +3,6 @@ import { useEffect, useRef, useState } from 'react';
 // Detect touch/mouse device once at module level
 const isTouchDevice = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
 
-// Reduced particle count for desktop — was 25, now 12
-const PARTICLE_COUNT = 12;
-const PARTICLES = Array.from({ length: PARTICLE_COUNT }, (_, i) => ({
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  dur: Math.random() * 20 + 15,
-  delay: Math.random() * 12,
-  size: Math.random() * 2 + 0.5,
-  color: i % 3 === 0 ? 'rgba(255,0,61,0.8)' : i % 3 === 1 ? 'rgba(255,107,0,0.8)' : 'rgba(255,255,255,0.6)',
-}));
-
 export const CursorBackground = () => {
   const glowRef = useRef<HTMLDivElement>(null);
   const ambientRef = useRef<HTMLDivElement>(null);
@@ -115,23 +104,6 @@ export const CursorBackground = () => {
           backgroundSize: '80px 80px',
         }}
       />
-
-      {/* Floating micro particles — desktop only */}
-      {!isTouchDevice && PARTICLES.map((p, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full particle-float"
-          style={{
-            left: `${p.x}vw`,
-            top: `${p.y}vh`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-            background: p.color,
-            animationDuration: `${p.dur}s`,
-            animationDelay: `${p.delay}s`,
-          }}
-        />
-      ))}
     </div>
   );
 };
