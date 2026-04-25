@@ -33,6 +33,52 @@ export function Checkout() {
 
   const set = (k: string, v: string) => setForm(f => ({ ...f, [k]: v }));
 
+  // ── Handle redirect-based payments (Net Banking, some UPI flows) ──
+  // When Razorpay redirects back from the bank, it appends payment params to the URL.
+  // We pick them up here, verify them, and complete the order.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const razorpay_payment_id = params.get('razorpay_payment_id');
+    const razorpay_order_id = params.get('razorpay_order_id');
+    const razorpay_signature = params.get('razorpay_signature');
+
+    if (!razorpay_payment_id || !razorpay_order_id || !razorpay_signature) return;
+
+    // Clean the URL immediately so a refresh doesn't re-trigger this
+    window.history.replaceState({}, '', '/checkout');
+
+    const pendingRaw = sessionStorage.getItem('wg_pending_order');
+    if (!pendingRaw) return;
+
+    const pendingOrder = JSON.parse(pendingRaw);
+    sessionStorage.removeItem('wg_pending_order');
+
+    setLoading(true);
+    (async () => {
+      try {
+        const verifyRes = await fetch('/api/razorpay-verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ razorpay_payment_id, razorpay_order_id, razorpay_signature })
+        });
+        const verifyResult = await verifyRes.json();
+        if (!verifyRes.ok) throw new Error(verifyResult.error || 'Payment verification failed');
+
+        const orderId = await dataApi.createOrder({
+          ...pendingOrder,
+          status: 'Processing',
+          paymentId: razorpay_payment_id
+        });
+        clearCart();
+        setSuccess({ orderId, method: 'razorpay' });
+      } catch (err: any) {
+        setError(err.message || 'Payment could not be verified. Contact support.');
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (items.length === 0) return setError("Your cart is empty.");
@@ -71,34 +117,40 @@ export function Checkout() {
         const orderResult = await orderResponse.json();
         if (!orderResponse.ok) throw new Error(orderResult.error || "Failed to initialize payment");
 
-        // 2. Open Razorpay Checkout modal
+        // 2. Store order data in sessionStorage so it survives a bank redirect
+        sessionStorage.setItem('wg_pending_order', JSON.stringify(baseOrderData));
+
+        // 3. Open Razorpay Checkout modal
         const options = {
-          key: (import.meta as any).env?.VITE_RAZORPAY_KEY_ID || "", 
+          key: (import.meta as any).env?.VITE_RAZORPAY_KEY_ID || "",
           amount: orderResult.amount, // in paise
           currency: orderResult.currency,
           name: "WheelsGlow",
           description: `Payment for ${product.name}`,
-          image: "https://wheelsglow.vercel.app/logo.png", // Use your actual logo URL
+          image: "https://wheelsglow.store/logo.png",
           order_id: orderResult.id,
+          // callback_url is REQUIRED for redirect-based flows (Net Banking, some UPI banks).
+          // After bank auth, Razorpay redirects here with payment params in the URL.
+          callback_url: `${window.location.origin}/checkout`,
+          redirect: true,
           handler: async function (response: any) {
+            // This fires for modal-based flows (cards, UPI QR, etc.)
+            // Redirect-based flows (net banking) are handled by the useEffect above.
             try {
-              // 3. Verify signature via backend
               const verifyRes = await fetch('/api/razorpay-verify', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(response)
               });
               const verifyResult = await verifyRes.json();
-              
               if (!verifyRes.ok) throw new Error(verifyResult.error || "Payment verification failed");
 
-              // 4. Payment Authentic! Save to Firebase.
               const orderId = await dataApi.createOrder({
                 ...baseOrderData,
-                status: 'Processing', // Already paid
+                status: 'Processing',
                 paymentId: response.razorpay_payment_id
               });
-              
+              sessionStorage.removeItem('wg_pending_order');
               clearCart();
               setSuccess({ orderId, method: "razorpay" });
             } catch (err: any) {
@@ -111,8 +163,8 @@ export function Checkout() {
             email: form.customerEmail,
             contact: form.customerPhone
           },
-          theme: { color: "#FF003D" }, // Neon accent color
-          modal: { ondismiss: () => setLoading(false) } // Stop loading if user closes popup
+          theme: { color: "#FF003D" },
+          modal: { ondismiss: () => setLoading(false) }
         };
 
         const paymentObject = new (window as any).Razorpay(options);
