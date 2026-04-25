@@ -150,7 +150,7 @@ export function ProductDetails() {
                 <p className="text-xs text-white/40 font-mono">Premium standard</p>
               </div>
               <div className="flex items-center justify-between px-5 py-4 rounded-xl border border-neon-accent bg-neon-accent/10 text-white cursor-default">
-                <span className="font-mono text-sm">{selectedSize}</span>
+                <span className="font-mono text-sm">{product.sizes?.[0] || "A2 — Standard Size (42×59cm)"}</span>
                 <Check className="w-4 h-4 text-neon-accent" />
               </div>
             </div>
@@ -158,7 +158,7 @@ export function ProductDetails() {
             {/* Price */}
             <div className="flex items-baseline gap-3">
               <span className="text-4xl font-display">₹{currentPrice.toLocaleString('en-IN')}</span>
-              {product.originalPrice && selectedSize === product.sizes?.[1] && (
+              {product.originalPrice && (
                 <span className="text-lg text-white/30 line-through">₹{product.originalPrice.toLocaleString('en-IN')}</span>
               )}
               <span className="text-sm text-green-400 font-mono">Free Shipping</span>
