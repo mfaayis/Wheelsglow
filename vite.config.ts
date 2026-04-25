@@ -15,6 +15,25 @@ export default defineConfig(({mode}) => {
         '@': path.resolve(__dirname, '.'),
       },
     },
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            // Split heavy libs into separate chunks — loads in parallel, not serially
+            if (id.includes('framer-motion') || id.includes('motion')) {
+              return 'motion';
+            }
+            if (id.includes('firebase')) {
+              return 'firebase';
+            }
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          },
+        },
+      },
+      cssCodeSplit: true,
+    },
     server: {
       port: 3000,
       host: '0.0.0.0',

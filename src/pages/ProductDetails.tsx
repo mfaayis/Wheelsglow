@@ -1,12 +1,46 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingCart, ArrowLeft, Check, Package, Shield, Truck, Zap, Heart } from "lucide-react";
+import { ShoppingCart, ArrowLeft, Check, Package, Shield, Truck, Zap, Heart, ChevronDown } from "lucide-react";
 import { PRODUCTS, SIZE_PRICES } from "../data/products";
 import { BeforeAfterSlider } from "../components/BeforeAfterSlider";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { SEO } from "../components/SEO";
+
+const Accordion = ({ title, data, initialOpen = true }: { title: string; data: Record<string, string>; initialOpen?: boolean }) => {
+  const [isOpen, setIsOpen] = useState(initialOpen);
+  return (
+    <div className="border border-white/10 rounded-xl mb-4 overflow-hidden bg-white/5 backdrop-blur-sm">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full flex items-center justify-between p-4 bg-white/5 hover:bg-white/10 transition-colors"
+      >
+        <span className="font-bold text-sm tracking-wide text-white">{title}</span>
+        <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ height: 0, opacity: 0 }} 
+            animate={{ height: "auto", opacity: 1 }} 
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="p-4 border-t border-white/5 space-y-3 bg-black/20">
+              {Object.entries(data).map(([key, value]) => (
+                <div key={key} className="flex gap-4">
+                  <span className="w-1/3 text-xs font-mono uppercase tracking-widest text-white/40">{key}</span>
+                  <span className="w-2/3 text-xs text-white/90">{value}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export function ProductDetails() {
   const { id } = useParams<{ id: string }>();
@@ -43,12 +77,24 @@ export function ProductDetails() {
   return (
     <div className="min-h-screen">
       <SEO 
-        title={`${product.name} | WheelsGlow LED Poster`}
-        description={`Buy the ${product.name} luxury LED art poster. ${product.description} Only the lights glow. Free shipping across India.`}
+        title={`${product.name} LED Art Poster | WheelsGlow — Buy Online India`}
+        description={`Buy the ${product.name} luxury LED art poster. ${product.description} Only the car's lights glow — cinematic wall art. Free pan-India shipping. Starting ₹999.`}
+        keywords={`${product.name} LED poster, ${product.name} wall art, buy ${product.name} poster India, WheelsGlow LED art`}
         image={`https://wheelsglow.store${product.imageOn || product.image}`}
-        url={`https://wheelsglow.store/product/${product.id}`}
+        canonical={`https://wheelsglow.store/product/${product.id}`}
         type="product"
+        product={{
+          name: product.name,
+          description: product.description || '',
+          image: `https://wheelsglow.store${product.imageOn || product.image}`,
+          price: product.price,
+          currency: 'INR',
+          availability: 'InStock',
+          brand: 'WheelsGlow',
+          sku: `WG-${product.id}-A2`,
+        }}
       />
+
       {/* Back button */}
       <div className="px-6 md:px-20 pt-8">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-white/40 hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
@@ -191,23 +237,64 @@ export function ProductDetails() {
           </motion.div>
         </div>
 
-        {/* ── Full Specs */}
-        <div className="max-w-7xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Specs Table */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="glass rounded-2xl p-8">
-            <h2 className="text-2xl font-display mb-6">Specifications</h2>
-            <div className="space-y-4">
-              {Object.entries(product.specs || {}).map(([key, value]) => (
-                <div key={key} className="flex gap-4 py-3 border-b border-white/5 last:border-0">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-white/30 w-24 flex-shrink-0 pt-0.5">{key}</span>
-                  <span className="text-sm text-white/80">{value}</span>
-                </div>
-              ))}
+        {/* ── Product Information (Detailed) ── */}
+        <div className="max-w-7xl mx-auto mt-16 pt-12 border-t border-white/10">
+          <h2 className="text-3xl font-display mb-10">Product information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 items-start">
+            
+            {/* Left Column */}
+            <div>
+              <Accordion title="Style" data={{
+                "Orientation": "Portrait / Landscape",
+                "Item Shape": "Rectangular",
+                "Theme": "Vehicle",
+                "Colour": product.name,
+                "Product Style": "LED Wall Art",
+                "Room Type": "Bedroom, Living Room, Garage, Office"
+              }} initialOpen={true} />
+              <Accordion title="Features & Specs" data={{
+                "Frame Type": "Unframed / Floating look",
+                "Special Features": "LED Light, Weatherproof, Remote Controlled",
+                "Mounting Type": "Wall Mount",
+                "Is Framed": "Rigid Aluminum Composite Backing"
+              }} initialOpen={true} />
+              <Accordion title="User guide" data={{
+                "Recommended Uses": "Car Enthusiast Decor, Ambient Lighting, Wall Art"
+              }} initialOpen={false} />
+              <Accordion title="Materials & Care" data={{
+                "Material Type": "Aluminum Composite & PVC",
+                "Frame Material": "High-density foam and aluminum",
+                "Finish Type": "Matte UV Resistant",
+                "Paint Type": "Digital 12-Color Print",
+                "Cover Material": "Scratch-resistant Coating"
+              }} initialOpen={false} />
             </div>
-          </motion.div>
 
-          {/* What's in the Box */}
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="glass rounded-2xl p-8">
+            {/* Right Column */}
+            <div>
+              <Accordion title="Measurements" data={{
+                "Size": selectedSize.split(" — ")[1] || "30x42 cm",
+                "Item Dimensions L x W": selectedSize.split(" — ")[1]?.replace('×', 'L x ') + 'W Centimeters' || "42L x 30W Centimeters",
+                "Item Weight": selectedSize.includes("A1") ? "1200 Grams" : selectedSize.includes("A2") ? "800 Grams" : "450 Grams",
+                "Unit Count": "1.0 Count"
+              }} initialOpen={true} />
+              <Accordion title="Item details" data={{
+                "Brand Name": "WheelsGlow",
+                "Country of Origin": "India",
+                "Manufacturer": "WheelsGlow, India",
+                "Importer Contact": "WheelsGlow, New Delhi",
+                "Item Type Name": "Sports Car LED Wall Art with PowerLEDs",
+                "Manufacturer Contact": "wheelsglow.store@gmail.com",
+                "Packer Contact": "WheelsGlow, New Delhi",
+                "SKU": `WG-${product.id}-${selectedSize.split(" ")[0] || "A3"}`
+              }} initialOpen={true} />
+            </div>
+          </div>
+        </div>
+
+        {/* ── What's in the Box ── */}
+        <div className="max-w-7xl mx-auto mt-8">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1 }} className="glass rounded-2xl p-8 max-w-2xl">
             <h2 className="text-2xl font-display mb-6">What's In The Box</h2>
             <div className="space-y-4">
               {product.inBox?.map((item, i) => (
@@ -230,7 +317,7 @@ export function ProductDetails() {
               <Link to={`/product/${otherProduct.id}`}>
                 <motion.div whileHover={{ scale: 1.01 }} className="glass rounded-2xl overflow-hidden flex items-center gap-5 p-4 cursor-pointer">
                   <img src={otherProduct.imageOn || otherProduct.image} alt={otherProduct.name}
-                    className="w-24 h-16 object-cover rounded-xl" />
+                    className="w-24 h-16 object-cover rounded-xl" loading="lazy" />
                   <div>
                     <p className="font-bold">{otherProduct.name}</p>
                     <p className="text-xs text-white/40 font-mono">{otherProduct.description}</p>
