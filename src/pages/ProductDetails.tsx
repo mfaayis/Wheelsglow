@@ -112,7 +112,8 @@ export function ProductDetails() {
               imageBefore={product.image}
               imageAfter={product.imageOn || product.image}
               ledColor={product.color}
-              aspectRatio={product.id === 2 ? "2/3" : "4/3"}
+              aspectRatio="1/1"
+              objectPosition={product.id === 2 ? "center 70%" : "center"}
               initialPosition={48}
               className="rounded-2xl overflow-hidden"
             />

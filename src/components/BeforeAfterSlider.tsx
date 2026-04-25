@@ -10,6 +10,8 @@ interface BeforeAfterSliderProps {
   className?: string;
   aspectRatio?: string;
   initialPosition?: number;
+  objectFit?: "cover" | "contain";
+  objectPosition?: string;
 }
 
 export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
@@ -19,6 +21,8 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
   className = "",
   aspectRatio = "16/10",
   initialPosition = 50,
+  objectFit = "cover",
+  objectPosition = "center",
 }) => {
   const [pos, setPos] = useState(initialPosition);
   const [isDragging, setIsDragging] = useState(false);
@@ -97,7 +101,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       {/* ── AFTER (LED ON) — shows on RIGHT, full-width base layer */}
       <div className="absolute inset-0">
         <img src={imageAfter} alt="LED ON" draggable={false}
-          className="w-full h-full object-cover object-center" />
+          className={`w-full h-full object-${objectFit}`} style={{ objectPosition }} />
         {/* Subtle color halo to enhance the glow */}
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: `radial-gradient(ellipse 60% 40% at 50% 55%, ${ledColor}18 0%, transparent 65%)` }} />
@@ -112,7 +116,7 @@ export const BeforeAfterSlider: React.FC<BeforeAfterSliderProps> = ({
       <div className="absolute inset-0 pointer-events-none"
         style={{ clipPath: `inset(0 ${100 - pos}% 0 0)` }}>
         <img src={imageBefore} alt="LED OFF" draggable={false}
-          className="w-full h-full object-cover object-center" />
+          className={`w-full h-full object-${objectFit}`} style={{ objectPosition }} />
         {/* OFF label — bottom left */}
         <div className="absolute bottom-3 left-3 z-20 flex items-center gap-1.5 bg-black/60 backdrop-blur-sm border border-white/15 px-3 py-1.5 rounded-full">
           <span className="w-2 h-2 rounded-full bg-white/30" />
